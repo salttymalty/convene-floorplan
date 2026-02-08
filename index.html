@@ -421,27 +421,29 @@
       margin-bottom: 0.5rem;
     }
 
-    /* Day tabs — touch carousel */
+    /* Day tabs — native momentum scroll */
     .day-switcher {
-      position: relative;
-      overflow: hidden;
-      margin: 0;
-      padding: 0.25rem 0;
-    }
-    .day-track {
       display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+      margin: 0;
+      padding: 0.25rem var(--space-sm);
       gap: 0.5rem;
-      will-change: transform;
+      -webkit-user-select: none;
+      user-select: none;
     }
-    .day-track.animating {
-      transition: transform 0.3s ease;
-    }
+    .day-switcher::-webkit-scrollbar { display: none; }
     .day-tab {
+      flex: 0 0 auto;
       font-size: var(--type-sm);
       padding: 0.5rem 1rem;
-      flex-shrink: 0;
       min-width: 100px;
       text-align: center;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
     }
 
     /* Progress rings — hide */
@@ -1829,10 +1831,10 @@ function setDay(day) {
     const isActive = btn.dataset.day === day;
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-selected', isActive);
+    if (isActive) {
+      btn.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+    }
   });
-  if (window._centerDayTab) {
-    window._centerDayTab(day, true);
-  }
 
   updateRoomStates();
   renderPullSheet();
@@ -2695,91 +2697,17 @@ document.querySelectorAll('.mobile-view-tab').forEach(tab => {
 init();
 
 /* ═══════════════════════════════════════════
-   DAY STRIP — touch carousel (mobile) + drag (desktop)
-   Must run AFTER init() so day-tab buttons exist.
+   DAY STRIP — native scroll (mobile) + drag (desktop)
    ═══════════════════════════════════════════ */
 
 (function() {
   const strip = daySwitcher;
-  const isMobile = window.innerWidth <= 860;
 
-  if (isMobile) {
-    // ── Wrap tabs in a track div ──
-    const track = document.createElement('div');
-    track.className = 'day-track';
-    while (strip.firstChild) track.appendChild(strip.firstChild);
-    strip.appendChild(track);
+  // No-op: setDay calls this but native scroll handles positioning
+  window._centerDayTab = function() {};
 
-    const tabs = [...track.querySelectorAll('.day-tab')];
-    let offset = 0;
-
-    function centerOnDay(day, animate) {
-      const tab = track.querySelector(`[data-day="${day}"]`);
-      if (!tab) return;
-      const stripCenter = strip.offsetWidth / 2;
-      const tabCenter = tab.offsetLeft + tab.offsetWidth / 2;
-      offset = stripCenter - tabCenter;
-      if (animate) {
-        track.classList.add('animating');
-        setTimeout(() => track.classList.remove('animating'), 350);
-      } else {
-        track.classList.remove('animating');
-      }
-      track.style.transform = `translateX(${offset}px)`;
-    }
-
-    // Expose for setDay()
-    window._centerDayTab = centerOnDay;
-
-    // Center on load after layout settles
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => centerOnDay(currentDay, false));
-    });
-
-    // ── Touch handling ──
-    let touchStartX, touchStartOffset, touching = false, moved = false;
-
-    track.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartOffset = offset;
-      touching = true;
-      moved = false;
-      track.classList.remove('animating');
-    }, { passive: true });
-
-    track.addEventListener('touchmove', (e) => {
-      if (!touching) return;
-      const dx = e.touches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 8) moved = true;
-      offset = touchStartOffset + dx;
-      track.style.transform = `translateX(${offset}px)`;
-    }, { passive: true });
-
-    track.addEventListener('touchend', () => {
-      if (!touching) return;
-      touching = false;
-
-      // Find nearest tab to strip center
-      const stripCenter = strip.offsetWidth / 2;
-      let nearest = tabs[0], minDist = Infinity;
-      for (const tab of tabs) {
-        const tabScreenCenter = tab.offsetLeft + tab.offsetWidth / 2 + offset;
-        const dist = Math.abs(tabScreenCenter - stripCenter);
-        if (dist < minDist) { minDist = dist; nearest = tab; }
-      }
-
-      const day = nearest.dataset.day;
-      centerOnDay(day, true);
-      if (day !== currentDay) setDay(day);
-    });
-
-    // Suppress click after drag
-    track.addEventListener('click', (e) => {
-      if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
-    }, true);
-
-  } else {
-    // ── Desktop: mouse drag-to-scroll ──
+  // Desktop: mouse drag-to-scroll (browsers don't natively drag-scroll divs)
+  if (window.innerWidth > 860) {
     let startX, startScroll, dragging = false, moved = false;
 
     strip.addEventListener('mousedown', (e) => {
