@@ -395,9 +395,9 @@
     .page {
       padding: var(--space-sm);
       padding-bottom: 0;
-      overflow: hidden;
+      overflow-x: hidden;
       width: 100%;
-      max-width: 100%;
+      max-width: 100vw;
       box-sizing: border-box;
     }
 
@@ -425,10 +425,10 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       flex-wrap: nowrap;
-      margin: 0 calc(-1 * var(--space-sm));
-      padding: 0 var(--space-sm);
-      scroll-snap-type: x mandatory;
-      scroll-padding: 0 var(--space-sm);
+      margin: 0;
+      padding: 0;
+      scroll-snap-type: x proximity;
+      gap: 0.4rem;
     }
     .day-switcher::-webkit-scrollbar { display: none; }
     .day-tab {
