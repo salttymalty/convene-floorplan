@@ -154,7 +154,10 @@
     gap: var(--space-2xs);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    user-select: none;
   }
+  .day-switcher:active { cursor: grabbing; }
 
   .day-tab {
     font-family: var(--font-body);
@@ -2683,52 +2686,112 @@ document.querySelectorAll('.mobile-view-tab').forEach(tab => {
 });
 
 /* ═══════════════════════════════════════════
-   SWIPE TO CHANGE DAY (mobile)
+   DAY STRIP — drag to scroll, tap to select
    ═══════════════════════════════════════════ */
 
 (function() {
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let swiping = false;
+  const strip = daySwitcher;
+  let startX, startScroll, dragging, moved;
 
+  // --- Touch drag on the day strip ---
+  strip.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startScroll = strip.scrollLeft;
+    dragging = true;
+    moved = false;
+    strip.style.scrollSnapType = 'none'; // disable snap while dragging
+  }, { passive: true });
+
+  strip.addEventListener('touchmove', (e) => {
+    if (!dragging) return;
+    const dx = e.touches[0].clientX - startX;
+    if (Math.abs(dx) > 5) moved = true;
+    strip.scrollLeft = startScroll - dx;
+  }, { passive: true });
+
+  strip.addEventListener('touchend', (e) => {
+    dragging = false;
+    strip.style.scrollSnapType = ''; // re-enable snap
+
+    // If dragged, suppress the tap/click on the day tab
+    if (moved) {
+      e.preventDefault();
+      // Snap to nearest tab after drag
+      const tabs = [...strip.querySelectorAll('.day-tab')];
+      const center = strip.scrollLeft + strip.offsetWidth / 2;
+      let nearest = tabs[0], minDist = Infinity;
+      for (const tab of tabs) {
+        const tabCenter = tab.offsetLeft + tab.offsetWidth / 2;
+        const dist = Math.abs(tabCenter - center);
+        if (dist < minDist) { minDist = dist; nearest = tab; }
+      }
+      nearest.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  });
+
+  // --- Mouse drag (desktop) ---
+  strip.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    startScroll = strip.scrollLeft;
+    dragging = true;
+    moved = false;
+    strip.style.cursor = 'grabbing';
+    strip.style.scrollSnapType = 'none';
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 5) moved = true;
+    strip.scrollLeft = startScroll - dx;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    strip.style.cursor = '';
+    strip.style.scrollSnapType = '';
+  });
+
+  // Suppress click on day tabs if we were dragging
+  strip.addEventListener('click', (e) => {
+    if (moved) {
+      e.stopPropagation();
+      moved = false;
+    }
+  }, true);
+
+  // --- Swipe on content area to change day ---
   const page = document.querySelector('.page');
+  let pageStartX = 0, pageStartY = 0;
 
   page.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-    swiping = true;
+    // Ignore if touch started on the day strip
+    if (strip.contains(e.target)) return;
+    pageStartX = e.touches[0].clientX;
+    pageStartY = e.touches[0].clientY;
   }, { passive: true });
 
   page.addEventListener('touchend', (e) => {
-    if (!swiping) return;
-    swiping = false;
+    if (strip.contains(e.target)) return;
+    const dx = e.changedTouches[0].clientX - pageStartX;
+    const dy = e.changedTouches[0].clientY - pageStartY;
 
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    const dy = e.changedTouches[0].clientY - touchStartY;
-
-    // Only trigger if horizontal swipe is dominant and long enough
     if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.6) return;
 
     const days = EVENT_DATA.event.days;
     const idx = days.indexOf(currentDay);
 
     if (dx < 0 && idx < days.length - 1) {
-      // Swipe left → next day
       setDay(days[idx + 1]);
-      scrollActiveTabIntoView();
     } else if (dx > 0 && idx > 0) {
-      // Swipe right → previous day
       setDay(days[idx - 1]);
-      scrollActiveTabIntoView();
     }
-  }, { passive: true });
 
-  function scrollActiveTabIntoView() {
-    const active = daySwitcher.querySelector('.day-tab.active');
-    if (active) {
-      active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    }
-  }
+    const active = strip.querySelector('.day-tab.active');
+    if (active) active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, { passive: true });
 })();
 
 /* ─── GO ─── */
