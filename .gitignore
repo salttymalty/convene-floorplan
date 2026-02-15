@@ -1,0 +1,5 @@
+.DS_Store
+temp-*
+*-v[0-9]*.html
+*-v[0-9]*.js
+*-v[0-9]*.css
