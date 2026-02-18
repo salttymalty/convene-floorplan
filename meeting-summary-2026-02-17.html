@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convene Chicago Offsite — IC Field Summary — February 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ── Primitives (Teal / Convene) ── */
+  :root {
+    --teal-deep:     #1a3a40;
+    --teal-mid:      #2d5a62;
+    --teal-standard: #4b7c8c;
+    --teal-bright:   #5c9aad;
+    --teal-muted:    #3d656f;
+    --teal-pale:     #b8d4dc;
+
+    /* Neutrals */
+    --neutral-50:  #fafaf9;
+    --neutral-100: #f5f4f2;
+    --neutral-200: #e8e6e3;
+    --neutral-300: #d4d1cc;
+    --neutral-500: #8a8580;
+    --neutral-700: #4a4540;
+    --neutral-900: #1c1a18;
+
+    /* Semantic tokens */
+    --color-bg:          var(--neutral-50);
+    --color-bg-raised:   #ffffff;
+    --color-bg-sunken:   var(--neutral-100);
+    --color-bg-accent:   var(--teal-pale);
+    --color-text:        var(--neutral-900);
+    --color-text-muted:  var(--neutral-500);
+    --color-text-accent: var(--teal-deep);
+    --color-primary:     var(--teal-standard);
+    --color-primary-hover: var(--teal-bright);
+    --color-border:      var(--neutral-200);
+    --color-border-accent: var(--teal-pale);
+    --color-highlight:   var(--teal-pale);
+
+    /* Status colors */
+    --color-caution:     #c4883a;
+    --color-caution-bg:  #fdf6ec;
+    --color-concern:     #b54a4a;
+    --color-concern-bg:  #fdf0ef;
+    --color-positive:    #4a7c5c;
+    --color-positive-bg: #f0f7f2;
+    --color-info-bg:     #eef5f8;
+
+    /* Typography */
+    --font-display:    'Fraunces', Georgia, serif;
+    --font-body:       'Source Serif 4', Georgia, serif;
+    --font-body-sans:  'Source Sans 3', system-ui, sans-serif;
+    --font-mono:       'Source Code Pro', monospace;
+
+    /* Shadows (warm-tinted, no pure black) */
+    --shadow-sm: 0 1px 3px hsla(25, 40%, 30%, 0.06);
+    --shadow-md: 0 2px 8px hsla(25, 40%, 30%, 0.08);
+    --shadow-lg: 0 4px 16px hsla(25, 40%, 30%, 0.10);
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-text);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .page {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: var(--space-md); }
+  }
+
+  /* ── Header ── */
+  .doc-header {
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .doc-header h1 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text-accent);
+    line-height: 1.25;
+    margin-bottom: var(--space-sm);
+  }
+
+  .doc-meta {
+    font-family: var(--font-body-sans);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm) var(--space-lg);
+  }
+
+  .doc-meta dt {
+    font-weight: 600;
+    color: var(--color-text);
+    display: inline;
+  }
+
+  .doc-meta dd {
+    display: inline;
+    margin-right: var(--space-lg);
+  }
+
+  .doc-context {
+    margin-top: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-info-bg);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body-sans);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--teal-mid);
+  }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--color-text-accent);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  h3 {
+    font-family: var(--font-body-sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--teal-mid);
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  p {
+    margin-bottom: var(--space-md);
+  }
+
+  /* ── Agenda Table ── */
+  .agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-lg);
+    font-family: var(--font-body-sans);
+    font-size: 0.9rem;
+  }
+
+  .agenda-table th {
+    text-align: left;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--teal-deep);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .agenda-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+  .agenda-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+
+  .agenda-table td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  .agenda-table tr:nth-child(even) td {
+    background: var(--color-bg-sunken);
+  }
+
+  .agenda-table .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .tag-presentation { background: var(--neutral-200); color: var(--neutral-700); }
+  .tag-interactive { background: var(--teal-pale); color: var(--teal-deep); }
+  .tag-casual { background: #f5f0e8; color: #7a6f5c; }
+  .tag-relevant { background: var(--color-positive-bg); color: var(--color-positive); }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--color-bg-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card-accent {
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .card-caution {
+    border-left: 4px solid var(--color-caution);
+    background: var(--color-caution-bg);
+  }
+
+  .card-concern {
+    border-left: 4px solid var(--color-concern);
+    background: var(--color-concern-bg);
+  }
+
+  .card-positive {
+    border-left: 4px solid var(--color-positive);
+    background: var(--color-positive-bg);
+  }
+
+  .card h4 {
+    font-family: var(--font-body-sans);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .card p, .card li {
+    font-size: 0.925rem;
+  }
+
+  /* ── Metric Blocks ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .metric {
+    background: var(--color-bg-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .metric-label {
+    font-family: var(--font-body-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
+  }
+
+  .metric-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-accent);
+  }
+
+  .metric-context {
+    font-family: var(--font-body-sans);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-xs);
+  }
+
+  .metric-green .metric-value { color: var(--color-positive); }
+  .metric-caution .metric-value { color: var(--color-caution); }
+  .metric-concern .metric-value { color: var(--color-concern); }
+
+  /* ── Lists ── */
+  ul, ol {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  li {
+    margin-bottom: var(--space-xs);
+  }
+
+  li + li {
+    margin-top: var(--space-xs);
+  }
+
+  /* ── Observation / Aside ── */
+  .observation {
+    background: var(--color-info-bg);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-md);
+    font-size: 0.925rem;
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .observation-label {
+    font-family: var(--font-body-sans);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  /* ── Whiteboard Reconstruction ── */
+  .whiteboard {
+    background: #fffef9;
+    border: 2px solid var(--neutral-300);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    position: relative;
+  }
+
+  .whiteboard::before {
+    content: 'WHITEBOARD RECONSTRUCTION';
+    position: absolute;
+    top: -10px;
+    left: var(--space-md);
+    background: #fffef9;
+    padding: 0 var(--space-sm);
+    font-family: var(--font-body-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+  }
+
+  .whiteboard-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .whiteboard-columns { grid-template-columns: 1fr; }
+  }
+
+  .whiteboard-col h4 {
+    font-family: var(--font-body-sans);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-sm);
+    text-align: center;
+  }
+
+  .wb-start h4 { background: var(--color-positive-bg); color: var(--color-positive); }
+  .wb-stop h4 { background: var(--color-concern-bg); color: var(--color-concern); }
+  .wb-continue h4 { background: var(--color-caution-bg); color: var(--color-caution); }
+
+  .sticky {
+    background: #fff9c4;
+    border: 1px solid #f0e68c;
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-body-sans);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    box-shadow: 1px 2px 4px hsla(25, 40%, 30%, 0.06);
+    transform: rotate(-0.5deg);
+  }
+
+  .sticky:nth-child(odd) { transform: rotate(0.3deg); }
+  .sticky:nth-child(3n) { transform: rotate(-0.8deg); }
+
+  .sticky-vote {
+    position: relative;
+  }
+
+  .sticky-vote::after {
+    content: attr(data-votes);
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body-sans);
+  }
+
+  /* ── Decision Tree Diagram ── */
+  .tree-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .tree-level {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .tree-label {
+    font-family: var(--font-body-sans);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+
+  .tree-level-leaves .tree-label { background: #e8f5e9; color: #2e7d32; }
+  .tree-level-branches .tree-label { background: #e3f2fd; color: #1565c0; }
+  .tree-level-trunk .tree-label { background: var(--color-caution-bg); color: var(--color-caution); }
+  .tree-level-roots .tree-label { background: var(--color-concern-bg); color: var(--color-concern); }
+
+  .tree-desc {
+    font-family: var(--font-body-sans);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .tree-example {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  /* ── Scorecard Weight Viz ── */
+  .weight-bar-container {
+    margin-bottom: var(--space-md);
+  }
+
+  .weight-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 50px;
+    gap: var(--space-sm);
+    align-items: center;
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-body-sans);
+    font-size: 0.85rem;
+  }
+
+  .weight-label {
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .weight-bar-track {
+    height: 24px;
+    background: var(--neutral-200);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .weight-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-sm);
+    transition: width 0.3s ease;
+  }
+
+  .weight-pct {
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Quote Block ── */
+  blockquote {
+    border-left: 3px solid var(--color-primary);
+    padding: var(--space-sm) var(--space-lg);
+    margin: var(--space-md) 0;
+    font-style: italic;
+    color: var(--teal-mid);
+    background: var(--color-info-bg);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  blockquote cite {
+    display: block;
+    font-style: normal;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-top: var(--space-xs);
+    color: var(--color-text-muted);
+  }
+
+  /* ── Roster ── */
+  .roster {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .roster-person {
+    font-family: var(--font-body-sans);
+    font-size: 0.85rem;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  .roster-name {
+    font-weight: 700;
+  }
+
+  .roster-role {
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+  }
+
+  /* ── Footer ── */
+  .doc-footer {
+    margin-top: var(--space-3xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-body-sans);
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Horizontal Rule ── */
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-xl) 0;
+  }
+
+  /* ── Strategic Analysis ── */
+  .strategic-lead {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--teal-mid);
+    margin-bottom: var(--space-lg);
+  }
+
+  .flow-timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  .flow-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--neutral-300);
+  }
+
+  .flow-event {
+    position: relative;
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-md);
+  }
+
+  .flow-event::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    background: var(--color-bg-raised);
+  }
+
+  .flow-event.flow-high::before {
+    background: var(--color-primary);
+  }
+
+  .flow-event.flow-low::before {
+    background: var(--neutral-200);
+    border-color: var(--neutral-300);
+  }
+
+  .flow-event.flow-frustration::before {
+    background: var(--color-concern);
+    border-color: var(--color-concern);
+  }
+
+  .flow-time {
+    font-family: var(--font-body-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .flow-title {
+    font-family: var(--font-body-sans);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+  }
+
+  .flow-body {
+    font-size: 0.875rem;
+    color: var(--neutral-700);
+    line-height: 1.55;
+  }
+
+  .frustration-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-lg);
+  }
+
+  .frustration-list li {
+    padding: var(--space-md) var(--space-lg);
+    border-left: 3px solid var(--color-concern);
+    background: var(--color-concern-bg);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: var(--space-sm);
+    font-size: 0.925rem;
+  }
+
+  .frustration-list li strong {
+    display: block;
+    font-family: var(--font-body-sans);
+    margin-bottom: 2px;
+  }
+
+  /* Leverage Points */
+  .leverage-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .leverage-intro {
+    font-size: 0.9rem;
+    color: var(--neutral-700);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-info-bg);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .leverage-point {
+    background: var(--color-bg-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .leverage-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-md);
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--teal-deep);
+    color: #fff;
+  }
+
+  .leverage-number {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    opacity: 0.7;
+    line-height: 1;
+  }
+
+  .leverage-name {
+    font-family: var(--font-body-sans);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .leverage-meadows {
+    font-size: 0.8rem;
+    opacity: 0.75;
+    font-style: italic;
+  }
+
+  .leverage-body {
+    padding: var(--space-lg);
+  }
+
+  .leverage-body h4 {
+    font-family: var(--font-body-sans);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--teal-mid);
+    margin-bottom: var(--space-sm);
+  }
+
+  .leverage-body p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .leverage-action {
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-positive-bg);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body-sans);
+    font-size: 0.85rem;
+    color: var(--color-positive);
+  }
+
+  .leverage-action strong {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+
+  /* ── Print ── */
+  @media print {
+    .page { max-width: none; padding: 0; }
+    .card, .whiteboard, .metric { break-inside: avoid; }
+    body { font-size: 11pt; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ════════════════════════════════════════ HEADER ════════════════════════════════════════ -->
+  <header class="doc-header">
+    <h1>Convene Chicago Offsite — IC Field Summary</h1>
+    <dl class="doc-meta">
+      <div><dt>Date:</dt> <dd>February 2026</dd></div>
+      <div><dt>Location:</dt> <dd>Convene Willis Tower (225 W Wacker) + 311 S Wacker</dd></div>
+      <div><dt>Author:</dt> <dd>Garen, AVOS</dd></div>
+      <div><dt>Perspective:</dt> <dd>Individual Contributor</dd></div>
+    </dl>
+    <div class="doc-context">
+      Full-day offsite where regional and corporate leadership visited Chicago properties. The day included financial reviews, a decision-making framework workshop, scorecard deep dive, sales strategy presentations, and an AV-specific breakout. This summary documents what happened, what was said, what it means, and what didn't get said.
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════ STRATEGIC ANALYSIS ════════════════════════════════════════ -->
+  <section>
+    <h2>Strategic Analysis</h2>
+
+    <p class="strategic-lead">This day was designed to align. It partially succeeded at informing. It mostly failed at listening. What follows is an honest reading of how the day flowed, where it broke down, and where the highest-leverage interventions actually sit — using Donella Meadows' framework for thinking about systems, not just symptoms.</p>
+
+    <!-- ── Flow of the Day ── -->
+    <h3>How the Day Actually Flowed</h3>
+
+    <div class="flow-timeline">
+      <div class="flow-event flow-low">
+        <div class="flow-time">Morning Block 1</div>
+        <div class="flow-title">State of the Union — Financial Review</div>
+        <div class="flow-body">Sarah and Scott read 2025 results and 2026 goals aloud to a room that mostly can't influence these numbers. Revenue, EBIDAR, engagement scores, NPS, QAA — presented as slides. Could have been a 2-page pre-read. Instead, this consumed prime energy at the start of the day when attention was highest and the team was physically together for one of the only times all year. The room listened. Nobody pushed back. The information landed, but the format cost us the most alert hour of the day.</div>
+      </div>
+
+      <div class="flow-event flow-low">
+        <div class="flow-time">Morning Block 2</div>
+        <div class="flow-title">2026 Goals + Food & Bev Intro</div>
+        <div class="flow-body">Scott and Dan presented the scorecards by property. Ryan Gallagher introduced himself (F&B). More presentation. The energy in the room was compliant, not engaged. People clapped when prompted. The numbers are good — Chicago had its best year ever — but the delivery was one-directional. The team was being told about their own performance.</div>
+      </div>
+
+      <div class="flow-event flow-high">
+        <div class="flow-time">Late Morning</div>
+        <div class="flow-title">AV Breakout — Start / Stop / Continue</div>
+        <div class="flow-body">The most substantive block of the day. Dom and Alex facilitated. Real technical problems surfaced: the V-600 switcher, the lighting relay glitch, fiber needs, ZV pain points, training gaps. Dom authorized a budget redirect on the spot. But the conversation moved at Dom's pace — fast, tangent-heavy — and the post-it prioritization (1 per person) compressed what the team could express. The session produced real signal. It also left things on the table.</div>
+      </div>
+
+      <div class="flow-event flow-frustration">
+        <div class="flow-time">Transition / Break</div>
+        <div class="flow-title">The Hallway Conversations</div>
+        <div class="flow-body">This is where the real processing happened. Colleagues compared notes on the AV breakout. I said out loud: "I didn't feel like I could talk." The VIP/Wildberg Gallery issue — something that should have been raised in the breakout — surfaced only now. Justin and I discussed how the sales strategy presentation needed translation. The informal conversations were more productive per minute than most of the formal sessions.</div>
+      </div>
+
+      <div class="flow-event flow-low">
+        <div class="flow-time">Early Afternoon</div>
+        <div class="flow-title">Decision Tree Workshop</div>
+        <div class="flow-body">A corporate framework (leaves/branches/trunk/roots) for categorizing decisions by risk and approval level. The exercise was well-structured: write 10 decisions on post-its, group by department, categorize on a tree, share out. The stated takeaway — "move trunk decisions up to branches, feel more empowered" — reframes structural bottlenecks as individual confidence gaps. The AV team had no trouble categorizing. The issue isn't that we don't know which level a decision belongs to. It's that the organization requires approval for things the team could handle autonomously.</div>
+      </div>
+
+      <div class="flow-event flow-low">
+        <div class="flow-time">Mid-Afternoon</div>
+        <div class="flow-title">Scorecard Deep Dive</div>
+        <div class="flow-body">Sarah walked through the five scorecard categories and their weights. First time many in the room had seen this explained in full. Useful information, but again: presentation format. The most revealing moment was the weighting itself — Finance at 40%, everything else at 15% — which says more about organizational priorities than any talking point about how much they value engagement.</div>
+      </div>
+
+      <div class="flow-event flow-frustration">
+        <div class="flow-time">Late Afternoon</div>
+        <div class="flow-title">Sales Strategy Presentation</div>
+        <div class="flow-body">Phil Mabasi presented the full sales strategy: demand generation, Cvent, Knowland reader boards, DMC happy hours, channel partnerships, account growth. Sophisticated and clearly important to the business. Also clearly designed for a different audience. Dan had to stop and translate it into operational terms. The room checked out partway through. Justin told me afterward he appreciated my "translating abilities." When your colleagues need a translator for a presentation designed for them, the presentation was designed for someone else.</div>
+      </div>
+
+      <div class="flow-event flow-high">
+        <div class="flow-time">Breaks Throughout</div>
+        <div class="flow-title">Human Connection</div>
+        <div class="flow-body">Climbing plans. Gramicci pants. Commuting strategies. Mobility exercises. The things that make people feel like people. These weren't wasted time — they were the relationship infrastructure that makes the formal sessions work at all. The problem is that the formal sessions didn't earn the energy these conversations gave back.</div>
+      </div>
+    </div>
+
+    <!-- ── Frustrations ── -->
+    <h3>What Frustrated Me</h3>
+
+    <ul class="frustration-list">
+      <li>
+        <strong>I couldn't get airtime in the session that mattered most.</strong>
+        The AV breakout was the one block where my voice should have been centered. Instead, the conversation moved at Dom's pace — which is fast, technical, and dominated by whoever has the most detail to share in the moment. I had to interject to contribute. The post-it system (1 per person) further compressed what could be expressed. Items I cared about didn't make the board because the conversation had already moved.
+      </li>
+      <li>
+        <strong>Rare in-person time was spent being talked at.</strong>
+        We're together maybe once or twice a year with the people who can actually change things. Roughly 80% of the day was presentations. Financial reviews, scorecard explanations, sales strategy — all information that could have been a pre-read or a recorded video. The opportunity cost of using this time for one-directional information transfer is enormous and invisible in the agenda.
+      </li>
+      <li>
+        <strong>"This is gonna all start with us."</strong>
+        Every operational problem — flow sheets, planning tools, content management, training sourcing — was pushed to the property team to solve. The stated reason sounds reasonable ("we don't know what works for you"). The effect is that the team builds solutions that may be adopted, replaced, or ignored when corporate eventually delivers a platform. It's empowerment without resources. Eric asked the hardest question of the day — "when does it start going from the top down?" — and the answer was: not yet.
+      </li>
+      <li>
+        <strong>The feedback collection has no visible accountability mechanism.</strong>
+        Whiteboards were photographed. Post-its were placed. Verbal commitments were made. But nothing was assigned a timeline, an owner, or a check-in date. The gap between collecting feedback and acting on it is where trust erodes. If the ETC training doesn't happen, if the switcher doesn't get replaced, if the renovation scoping process doesn't change — then next year's offsite will have the same post-its on the same board.
+      </li>
+      <li>
+        <strong>The Courtney moment.</strong>
+        The SVP of Operations walked in, delivered cookies, said "I'm gonna leave you to do things I don't understand," and left. The person accountable for operations at the executive level has no technical understanding of the AV function. When budget conversations happen, when renovation scoping happens, when tool decisions get made — there's no advocate at the leadership table who understands what this team does or needs.
+      </li>
+      <li>
+        <strong>The Decision Tree asks individuals to solve structural problems.</strong>
+        The workshop framed decision bottlenecks as confidence issues: you know the answer, just trust yourself. But the AV breakout revealed that many of our bottlenecks are organizational: no budget at 311, no planning system replacement, no CATs from architects, no renovation scoping involvement. You can't confidence your way past a missing budget line. The framework is useful for day-of event calls. It's useless for the problems that actually slow this team down.
+      </li>
+    </ul>
+
+    <!-- ── Leverage Points ── -->
+    <h3>Highest Leverage Interventions</h3>
+    <p class="leverage-intro">Donella Meadows identified twelve places to intervene in a system, ranked from least to most effective. Tweaking parameters (budgets, headcounts) is the weakest leverage. Changing information flows, rules, and system goals is where real change lives. Here are the leverage points that matter most for what I saw today — starting with the highest leverage and working down.</p>
+
+    <div class="leverage-section">
+
+      <div class="leverage-point">
+        <div class="leverage-header">
+          <div class="leverage-number">#6</div>
+          <div>
+            <div class="leverage-name">Information Flows</div>
+            <div class="leverage-meadows">Meadows: "The structure of who does and does not have access to information"</div>
+          </div>
+        </div>
+        <div class="leverage-body">
+          <h4>What's broken</h4>
+          <p>The information in this organization flows up and out, not down and across. Leadership presents financials and strategies to the field. The field reports problems through tickets that compete with every other property globally. But the field's operational knowledge — what actually works in these rooms, what clients actually need, what breaks under load — doesn't flow to the people who make structural decisions (renovation scoping, tool selection, budget allocation). Pollard visited Chicago for the first time last month. The SVP of Operations self-identified as not understanding AV work. The scorecard was explained for the first time to a team that's been measured by it.</p>
+
+          <h4>Why this is the highest leverage here</h4>
+          <p>Almost every problem surfaced today is an information flow problem. The lighting glitch persists because the ticket trail is fragmented. The V-600 was spec'd wrong because on-site input wasn't part of the renovation scoping. The Decision Tree is needed because people don't know what they're authorized to decide. The sales strategy required translation because it wasn't designed for this audience. Fix the information flows and you fix half the symptoms without touching anything else.</p>
+
+          <div class="leverage-action">
+            <strong>What I can do from here</strong>
+            Write things down. This document is an information flow intervention. The ZV feedback doc Justin and I compiled is an information flow intervention. Every ticket with fiscal impact noted is an information flow intervention. The team that documents best gets heard first — not because the system is fair, but because documented problems are the only ones that survive the distance between the field and the people who allocate resources.
+          </div>
+        </div>
+      </div>
+
+      <div class="leverage-point">
+        <div class="leverage-header">
+          <div class="leverage-number">#5</div>
+          <div>
+            <div class="leverage-name">Rules of the System</div>
+            <div class="leverage-meadows">Meadows: "Incentives, punishments, constraints — who has power over them"</div>
+          </div>
+        </div>
+        <div class="leverage-body">
+          <h4>What's broken</h4>
+          <p>The scorecard weights Finance at 40% and Engagement at 15%. That's a rule. It tells every property: cost control is your primary mission. It doesn't matter how many presentations emphasize engagement — the measurement system says otherwise, and people optimize for what's measured. Similarly, the rule "start solutions at the property level" sounds like autonomy but functions as a constraint: it means the organization never has to build shared infrastructure until someone below builds a prototype worth stealing.</p>
+
+          <h4>Why this matters</h4>
+          <p>The Decision Tree workshop taught people to categorize their decisions. But the real decision rules — who approves what, what budgets exist, who gets consulted during renovations — were not on the table. Those rules determine whether your trunk decision can ever become a branch. No amount of empowerment workshops change the rules. Only changing the rules changes the rules.</p>
+
+          <div class="leverage-action">
+            <strong>What I can do from here</strong>
+            I can't change the scorecard weights. But I can make the rules visible. When I document why a decision required trunk-level approval — when a ticket shows the fiscal cost of waiting for validation that could have been pre-authorized — that makes the implicit rules explicit. Explicit rules can be questioned. Invisible ones can't. Eric's question ("when does it start going from the top down?") was the most important sentence spoken all day because it named a rule that everyone else was just living inside of.
+          </div>
+        </div>
+      </div>
+
+      <div class="leverage-point">
+        <div class="leverage-header">
+          <div class="leverage-number">#4</div>
+          <div>
+            <div class="leverage-name">Power to Self-Organize</div>
+            <div class="leverage-meadows">Meadows: "The power to add, change, or evolve system structure"</div>
+          </div>
+        </div>
+        <div class="leverage-body">
+          <h4>What's broken</h4>
+          <p>The AV team has the technical knowledge to design its own operational infrastructure: flow sheets, content management processes, event planning workflows, training curricula. And in fact, the team is already doing this — Google Sheets for flow sheets, DIY solutions for content management, self-sourced training. But the team doesn't have the authority or resources to make these solutions durable. They're building with duct tape because the organization hasn't provided lumber.</p>
+
+          <h4>Why this matters</h4>
+          <p>The healthiest version of "start from the property level" would be: the team builds solutions, leadership provides resources to make them permanent, and the best solutions become organizational standards. Right now it's: the team builds solutions, leadership promises a platform (Lasso, ClickUp replacement), the platform either arrives late or doesn't fit, and the team rebuilds. Self-organization without institutional support is just extra work.</p>
+
+          <div class="leverage-action">
+            <strong>What I can do from here</strong>
+            Build things worth adopting. The flow sheet I helped develop, the ZV feedback doc, the approach to content management — if these are clean, documented, and shareable, they become harder to ignore or replace with something worse. The team that builds the best prototype doesn't just solve its own problem; it sets the default for everyone else. That's self-organization becoming system structure.
+          </div>
+        </div>
+      </div>
+
+      <div class="leverage-point">
+        <div class="leverage-header">
+          <div class="leverage-number">#9</div>
+          <div>
+            <div class="leverage-name">Delays</div>
+            <div class="leverage-meadows">Meadows: "The lengths of time relative to the rates of system change"</div>
+          </div>
+        </div>
+        <div class="leverage-body">
+          <h4>What's broken</h4>
+          <p>The delay between problem identification and resolution is the dominant friction in this system. The lighting relay glitch has been ticketed multiple times — the person assigned to fix it quit, and the issue persists. ClickUp was removed months ago with no replacement. The Lasso planning system is "4-6 weeks" away — the same distance it's probably been for a while. The AVOS budget at 311 has never existed. These delays aren't bugs; they're the system working as designed for a company growing faster than its operational infrastructure can keep up.</p>
+
+          <h4>Why this matters</h4>
+          <p>Every delay has a cost, but the costs are borne by the field team — not by the people who control the delay. When a ticket sits unresolved, the on-site team builds a workaround. When a tool is removed without replacement, the team invents a process. The delay is invisible to leadership because the symptoms are absorbed before they reach the dashboard. This is why documenting fiscal impact on tickets matters: it makes the cost of delay visible to the people who can shorten it.</p>
+
+          <div class="leverage-action">
+            <strong>What I can do from here</strong>
+            Shorten the delays I can control. Submit tickets immediately, not after collecting months of evidence. Follow up on the Pollard visit scheduling this week while the momentum is fresh. Forward the ZV doc to helpdesk before the end of this week. And for the delays I can't control — the Lasso timeline, the 311 budget, the renovation scoping process — track them visibly so the delay itself becomes documented evidence.
+          </div>
+        </div>
+      </div>
+
+      <div class="leverage-point">
+        <div class="leverage-header">
+          <div class="leverage-number">#8</div>
+          <div>
+            <div class="leverage-name">Balancing Feedback Loops</div>
+            <div class="leverage-meadows">Meadows: "The strength of the feedbacks relative to the impacts they are trying to correct"</div>
+          </div>
+        </div>
+        <div class="leverage-body">
+          <h4>What's broken</h4>
+          <p>The offsite is supposed to be a feedback loop: leadership visits, hears from the field, adjusts course. But the loop is too slow (annual or semi-annual), too compressed (one day for everything), and too asymmetric (80% presenting, 20% listening). The engagement surveys are another feedback loop — now reduced from 4x to 2x per year, making them slower. The ticket system is a third loop, but it measures resolution of individual issues, not patterns across issues.</p>
+
+          <h4>Why this matters</h4>
+          <p>A feedback loop that's too slow or too weak relative to the system it's trying to correct is functionally decorative. The annual offsite collects a year's worth of frustration and compresses it into post-it notes. By the time leadership acts — if they act — the field has already built workarounds, and the original problem has mutated. The AV breakout was the strongest feedback loop of the day, precisely because Dom has the technical authority to act on what he hears in real time (the switcher budget redirect). The other sessions had no equivalent authority in the room.</p>
+
+          <div class="leverage-action">
+            <strong>What I can do from here</strong>
+            Create shorter, more frequent feedback loops within my sphere. The Pollard room-by-room walkthrough in March is a feedback loop. Regular ticket submissions with impact notes is a feedback loop. Peer QAA walkthroughs between properties is a feedback loop. None of these require organizational permission. They just require consistency.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="observation">
+      <div class="observation-label">The meta-observation</div>
+      The highest-leverage intervention available to an IC is always information flow. I can't change the scorecard weights, the reporting structure, or the renovation scoping process. But I can make problems legible, make costs visible, and make solutions shareable. That's not a consolation prize — it's the mechanism by which field knowledge eventually becomes organizational knowledge. The question is whether this organization's feedback loops are fast enough to convert field knowledge into structural change before the next offsite covers the same ground.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ PEOPLE ════════════════════════════════════════ -->
+  <section>
+    <h2>Who Was in the Room</h2>
+
+    <h3>Leadership / Corporate</h3>
+    <div class="roster">
+      <div class="roster-person"><span class="roster-name">Sarah</span> <span class="roster-role">Regional leader (West)</span></div>
+      <div class="roster-person"><span class="roster-name">Scott</span> <span class="roster-role">GM / operations leadership</span></div>
+      <div class="roster-person"><span class="roster-name">Dan</span> <span class="roster-role">GM / operations leadership</span></div>
+      <div class="roster-person"><span class="roster-name">Ryan Gallagher</span> <span class="roster-role">Food & Beverage</span></div>
+      <div class="roster-person"><span class="roster-name">Jill / Phil Mabasi</span> <span class="roster-role">VP Sales (non-NY/UK markets)</span></div>
+      <div class="roster-person"><span class="roster-name">Courtney</span> <span class="roster-role">SVP of Operations</span></div>
+      <div class="roster-person"><span class="roster-name">Dom</span> <span class="roster-role">AV Engineering leadership</span></div>
+      <div class="roster-person"><span class="roster-name">Alex</span> <span class="roster-role">Meeting/AV management</span></div>
+    </div>
+
+    <h3>Chicago AV Team (Our Breakout Group)</h3>
+    <div class="roster">
+      <div class="roster-person"><span class="roster-name">Garen</span> <span class="roster-role">AVOS</span></div>
+      <div class="roster-person"><span class="roster-name">Isaiah</span> <span class="roster-role">AV US</span></div>
+      <div class="roster-person"><span class="roster-name">Jess</span> <span class="roster-role">AV Tech Manager (Willis/225)</span></div>
+      <div class="roster-person"><span class="roster-name">Jeremiah</span> <span class="roster-role">AV US</span></div>
+      <div class="roster-person"><span class="roster-name">Eric</span> <span class="roster-role">Tech Manager</span></div>
+      <div class="roster-person"><span class="roster-name">Justin</span> <span class="roster-role">AVOS</span></div>
+      <div class="roster-person"><span class="roster-name">Vince</span> <span class="roster-role">AV (311 property)</span></div>
+      <div class="roster-person"><span class="roster-name">Derek</span> <span class="roster-role">311 property</span></div>
+      <div class="roster-person"><span class="roster-name">Jordan</span> <span class="roster-role">311 property</span></div>
+    </div>
+
+    <h3>Referenced but Not Present in AV Breakout</h3>
+    <div class="roster">
+      <div class="roster-person"><span class="roster-name">Pollard / Poller</span> <span class="roster-role">AV Engineering (remote, possibly UK)</span></div>
+      <div class="roster-person"><span class="roster-name">Leah</span> <span class="roster-role">Sales Executive (Chicago)</span></div>
+      <div class="roster-person"><span class="roster-name">Zippy</span> <span class="roster-role">Sales (Chicago)</span></div>
+      <div class="roster-person"><span class="roster-name">Abby</span> <span class="roster-role">Demand Generation (corporate)</span></div>
+      <div class="roster-person"><span class="roster-name">Craig</span> <span class="roster-role">AV support (UK, new hire)</span></div>
+      <div class="roster-person"><span class="roster-name">Lulu</span> <span class="roster-role">Revenue Manager</span></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ AGENDA ════════════════════════════════════════ -->
+  <section>
+    <h2>How the Day Actually Unfolded</h2>
+    <table class="agenda-table">
+      <thead>
+        <tr>
+          <th>Block</th>
+          <th>Format</th>
+          <th>Led By</th>
+          <th>Relevance to AV</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>State of the Union: 2025 Review</td>
+          <td><span class="tag tag-presentation">Presentation</span></td>
+          <td>Sarah, Scott</td>
+          <td>Background context only</td>
+        </tr>
+        <tr>
+          <td>2026 Goals & Scorecards (225 + 311)</td>
+          <td><span class="tag tag-presentation">Presentation</span></td>
+          <td>Scott, Dan</td>
+          <td>Numbers that frame our operating environment</td>
+        </tr>
+        <tr>
+          <td>Food & Beverage Intro</td>
+          <td><span class="tag tag-presentation">Presentation</span></td>
+          <td>Ryan Gallagher</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>AV Breakout: Start / Stop / Continue</td>
+          <td><span class="tag tag-interactive">Interactive</span></td>
+          <td>Dom, Alex</td>
+          <td><span class="tag tag-relevant">High — core session</span></td>
+        </tr>
+        <tr>
+          <td>Decision Tree Workshop</td>
+          <td><span class="tag tag-interactive">Interactive</span></td>
+          <td>Sarah + facilitator</td>
+          <td>Framework for decision empowerment</td>
+        </tr>
+        <tr>
+          <td>Scorecard Deep Dive</td>
+          <td><span class="tag tag-presentation">Presentation</span></td>
+          <td>Sarah / Dan</td>
+          <td>Understanding how success is measured</td>
+        </tr>
+        <tr>
+          <td>Sales Strategy: 3 Pillars</td>
+          <td><span class="tag tag-presentation">Presentation</span></td>
+          <td>Jill / Phil</td>
+          <td>Peripheral — how revenue is generated</td>
+        </tr>
+        <tr>
+          <td>Post-Contract Growth / Upselling</td>
+          <td><span class="tag tag-interactive">Interactive</span></td>
+          <td>Phoenix + Jill</td>
+          <td>Partially relevant to AV upsells</td>
+        </tr>
+        <tr>
+          <td>Breaks / Meals / Transition</td>
+          <td><span class="tag tag-casual">Casual</span></td>
+          <td>n/a</td>
+          <td>Relationship building, real conversation</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="observation">
+      <div class="observation-label">Time allocation</div>
+      Roughly 80% of the day was presentations delivered to the room. The AV breakout and Decision Tree activity were the only genuinely interactive blocks. For a team that's physically together maybe once or twice a year, this ratio means most of the day was spent listening to information that could have been a pre-read.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ FINANCIALS ════════════════════════════════════════ -->
+  <section>
+    <h2>Financial Overview (As Presented)</h2>
+    <p>These numbers frame the operating environment. They don't directly change daily AV work, but they explain why leadership talks about labor costs and controllables the way they do.</p>
+
+    <h3>2025 Results (Region: Chicago + San Francisco)</h3>
+    <div class="metrics-grid">
+      <div class="metric metric-green">
+        <div class="metric-label">Top Line Revenue</div>
+        <div class="metric-value">$6.3M</div>
+        <div class="metric-context">Exceeded target</div>
+      </div>
+      <div class="metric metric-green">
+        <div class="metric-label">Full Contract Growth</div>
+        <div class="metric-value">$6.1M</div>
+        <div class="metric-context">174% of $3.5M target</div>
+      </div>
+      <div class="metric metric-caution">
+        <div class="metric-label">EBIDAR</div>
+        <div class="metric-value">57.2%</div>
+        <div class="metric-context">Goal was 57.6% — exceeded dollars, missed %</div>
+      </div>
+      <div class="metric metric-concern">
+        <div class="metric-label">Employee Engagement</div>
+        <div class="metric-value">Met ~1x</div>
+        <div class="metric-context">Goal met maybe once all year</div>
+      </div>
+      <div class="metric metric-green">
+        <div class="metric-label">NPS</div>
+        <div class="metric-value">88-94</div>
+        <div class="metric-context">Willis 88 / 311 94</div>
+      </div>
+      <div class="metric metric-green">
+        <div class="metric-label">QAA</div>
+        <div class="metric-value">89.5</div>
+        <div class="metric-context">Goal was 80</div>
+      </div>
+    </div>
+
+    <p>Sarah called 2025 "the best year Chicago has ever had." The region exceeded revenue targets, and Chicago had to compensate for the East region's weaker performance due to government-related slowdowns.</p>
+
+    <h3>2026 Goals</h3>
+    <table class="agenda-table">
+      <thead>
+        <tr><th>Property</th><th>Top Line</th><th>Pacing</th><th>EBIDAR</th><th>NPS Goal</th><th>QAA Goal</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Willis (225)</td>
+          <td>$16.9M</td>
+          <td>106% vs. prior year</td>
+          <td>58.3% ($9.8M)</td>
+          <td>95</td>
+          <td>95</td>
+        </tr>
+        <tr>
+          <td>311</td>
+          <td>$10.5M</td>
+          <td>$6.1M booked (140% vs LY)</td>
+          <td>65.2% ($6.8M)</td>
+          <td>95</td>
+          <td>Goal TBD (missed at 86.3 in 2025)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="card card-caution">
+      <h4>The EBIDAR Reality</h4>
+      <p>Willis is currently -$126K on EBIDAR because the number includes January/February general expenses. Scott emphasized that slow months lose money by design; the goal is to minimize losses in Q1 so busy months (April-June) can make it up. This is why leadership is "annoying about managing costs in slow months." The team forecasted a larger loss and came in under forecast, which is the actual story — but the headline number looks scary on paper.</p>
+    </div>
+
+    <div class="card card-accent">
+      <h4>Key Context: 311 Business Mix</h4>
+      <p>311 runs approximately 50/50 workplace vs. meetings revenue. Workplace revenue provides stability during months when meeting bookings are light — "workplace is a marriage, meetings are a date." This mix is why 311 started 2026 in the positive despite closing the meeting floor for 3 of 4 weeks in January.</p>
+    </div>
+
+    <div class="observation">
+      <div class="observation-label">Employee engagement — the gap</div>
+      Both properties acknowledged engagement was low in 2025. Engagement surveys are moving from 4x/year to 2x/year. Leadership framed this as "let you guys be" but it also means less frequent data. Willis goal is 81 (currently 77). The stated plan: analyze survey comments, revamp one-on-ones, commit to management meetings. No structural changes were announced — just more of the same mechanisms.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ AV BREAKOUT ════════════════════════════════════════ -->
+  <section>
+    <h2>AV Breakout: Start / Stop / Continue</h2>
+    <p>This was the most substantive session for the AV team. Dom and Alex facilitated. The exercise surfaced real technical and operational issues, though the conversation was tangent-heavy and moved at Dom's pace. One post-it note per person for prioritization at the end.</p>
+
+    <div class="whiteboard">
+      <div class="whiteboard-columns">
+        <div class="whiteboard-col wb-start">
+          <h4>START</h4>
+          <div class="sticky sticky-vote" data-votes="2">Quarterly feedback sessions — team to leadership on what leadership can do better</div>
+          <div class="sticky">LED management training (pixel math, calibration, bracket/hardware setup, processor programming)</div>
+          <div class="sticky sticky-vote" data-votes="3">Lift certification for team</div>
+          <div class="sticky">Audio training beyond Q-SYS and ClearOne (Shure, etc.)</div>
+          <div class="sticky">CATs (cable/wiring diagrams) for all rooms and galleries</div>
+          <div class="sticky sticky-vote" data-votes="4">ETC lighting training — specifically programming the Ion/UTC console</div>
+          <div class="sticky">Renovation scoping: involve on-site AV team before decisions are made</div>
+          <div class="sticky sticky-vote" data-votes="2">Large event production prep — formal process for bigger shows</div>
+          <div class="sticky">LED signage purchase — purpose-built for property needs</div>
+          <div class="sticky">Fiber line solution for hall front-of-house capability</div>
+        </div>
+
+        <div class="whiteboard-col wb-stop">
+          <h4>STOP</h4>
+          <div class="sticky">No AVOS budget allocated at 311 — "they never allocated a budget for AVOS over there"</div>
+          <div class="sticky">Roland V-600 switcher at 311 — wrong spec, limited I/O, global HDCP issue, only 2 image memories</div>
+        </div>
+
+        <div class="whiteboard-col wb-continue">
+          <h4>CONTINUE</h4>
+          <div class="sticky">Better training solicitation process — Dom and Alex acknowledged current approach is weak</div>
+          <div class="sticky sticky-vote" data-votes="2">Data flows / flow sheets — currently Google Sheets, property-level, working but needs standardization</div>
+          <div class="sticky">Best practices for system maintenance and escalation</div>
+          <div class="sticky">Ticket submission discipline — flag early, document fiscal impact</div>
+          <div class="sticky">Content management process for recordings, digital signage, event materials</div>
+          <div class="sticky sticky-vote" data-votes="1">Planning system (Lasso evaluation — "probably next 4-6 weeks")</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Technical Issues Discussed in Detail</h3>
+
+    <div class="card card-concern">
+      <h4>311 Video Switcher — Roland V-600</h4>
+      <p>The V-600 installed during the 311 renovation is inadequate for the property's needs. Global HDCP setting renders 2 SDI inputs unusable without decimators. Only 2 image memory slots. Both input and output counts are insufficient for the room's 3 screens + record + multiview needs.</p>
+      <p><strong>Resolution discussed:</strong> Replace with a Blackmagic ATEM V-80 or V-160. V-160 is ~$5K, V-80 is ~$3K. Ironically, the current V-600 costs more than either replacement. Dom authorized pulling funds from the growth project budget. Vince, Derek, and Jess to scope the exact replacement.</p>
+    </div>
+
+    <div class="card card-concern">
+      <h4>Lighting Relay Glitch — Forum / Hall</h4>
+      <p>Architectural lighting glitch where pressing a button in the Forum can affect lighting in the Hall during active events. The systems are linked together "stupidly." The designer from LDG (Line Design Group) who was going to fix this quit the company. Multiple previous tickets exist but the issue persists.</p>
+      <p><strong>Action required:</strong> Submit a new ticket to AV helpdesk referencing the history. Dom said to tell them "Sharpen asked us to do this" for documentation chain. The chronological ticket trail matters for escalation.</p>
+    </div>
+
+    <div class="card card-caution">
+      <h4>ZV System Pain Points at 311</h4>
+      <p>The new ZV (Zoom/video conferencing) system installed during the 311 renovation has multiple issues. Justin and Garen mixed the first show after the install and compiled a documentation package that was sent to Pollard via email.</p>
+      <p><strong>Action required:</strong> Forward the existing doc to AV helpdesk as a formal ticket. For Willis: the hall will NOT go to ZV — the foundation is built around the existing coffer infrastructure. Hall will likely stay with Analog Way or potentially Barco. Clubs and smaller rooms may still get ZV. Dom has "issues with the E3 subscription model" but is willing to give them until Q4.</p>
+    </div>
+
+    <div class="card card-accent">
+      <h4>Fiber for the Hall</h4>
+      <p>Request for fiber line solution to enable front-of-house operation from the back of the hall. Currently limited to 2 HDMIs and SDIs (SDIs reserved for cameras). Clients frequently want laptop inputs in the back of the room. Existing HDMI extenders are unreliable.</p>
+      <p><strong>Discussion:</strong> Analog Way just released 210 fiber cards this year. Could get an extra 210 output card + fiber patch panel. Need to scope conduit runs to avoid bare fiber on the floor. Dom wants a separate meeting with Pollard to discuss full requirements. This connects to the larger event production prep conversation.</p>
+    </div>
+
+    <div class="card card-accent">
+      <h4>311 Gallery Lighting — iPad / Vibe Hub Issue</h4>
+      <p>Isaiah reported that gallery lights at 311 can't be controlled via the tablet. Wi-Fi settings can't find the Vibe hub. Currently relying on physical button strip at front desk. Dom's take: either the iPad isn't hitting the Vibe hub or the dimmer isn't on the same network. Needs a ticket.</p>
+    </div>
+
+    <h3>Equipment & Inventory Notes</h3>
+    <ul>
+      <li><strong>Decimators:</strong> Willis has them (MD-HX). 311 needs ~6 more (scaling HDMI-SDI). DOM confirmed IO mapping has stock ("tacos").</li>
+      <li><strong>LED Signage:</strong> Discussion about freestanding digital signage for hallways/boardrooms. San Francisco has battery-operated marquees (importing from Canada was a nightmare — 8 months of Justin's life). Looking at Theatrix 1.8mm panels with acrylic covers and onboard NovaStar processors. Also discussed integrating BrightSign players for network-managed content.</li>
+      <li><strong>Rental Laptops:</strong> All rental laptops need to be logged into the property Office 365 account. Corporate Systems is threatening to reclaim unused licenses. These accounts will eventually be tied to property Google Drive for content management.</li>
+    </ul>
+
+    <h3>Organizational Items from the Breakout</h3>
+    <ul>
+      <li><strong>Pollard visit in March:</strong> Goal is a full room-by-room walkthrough of Chicago properties. Not gear-focused — experience-focused. "What doesn't work for day-to-day?" Dom wants the same for San Francisco.</li>
+      <li><strong>Lasso (planning system):</strong> Agreement expected in ~4 weeks. Will replace ClickUp for event planning. Quotes still built in Camino S. Helps with inventory management. Will not fully replace property-level planning needs.</li>
+      <li><strong>Ticket culture:</strong> Dom's team will "ignore you until you get a ticket." Not personal — there are too many Slack channels and properties. Include fiscal impact in tickets. Don't wait to collect months of evidence. Even if you fix something yourself, still log the ticket for the paper trail.</li>
+      <li><strong>Capex vs. Reno budgets:</strong> These are separate. End-of-year Capex assessments can fund equipment upgrades outside of renovation cycles. Don't wait for a reno to request changes.</li>
+      <li><strong>UK coverage:</strong> Craig in the UK will start covering early-morning tickets for Central time zone properties. Not a full solution but tickets submitted by ~7:30 CT will have someone actively working them.</li>
+    </ul>
+
+    <h3>Post-It Prioritization Results</h3>
+    <p>Each person got 1 post-it. Placements clustered around:</p>
+    <ol>
+      <li><strong>ETC lighting training / programming</strong> — nearly everyone wanted this; acknowledged as potentially low-hanging fruit since ETC has a Chicago shop</li>
+      <li><strong>Large event production prep</strong> — formal process for bigger shows</li>
+      <li><strong>Renovation scoping involvement</strong> — being consulted before decisions are made</li>
+      <li><strong>Data flows / planning system</strong> — property-level operations tooling</li>
+    </ol>
+
+    <div class="observation">
+      <div class="observation-label">What didn't make the board</div>
+      The VIP/Wildberg Gallery issue was flagged after the breakout as something that should have come up but didn't. A workaround exists but the underlying problem wasn't formally discussed. This is the kind of thing that falls through when a single breakout session tries to cover everything.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ DECISION TREE ════════════════════════════════════════ -->
+  <section>
+    <h2>Decision Tree Workshop</h2>
+    <p>Company-wide framework for categorizing decisions by risk level and required approval. Presented as a tool to "empower" faster decision-making across all departments.</p>
+
+    <div class="tree-diagram">
+      <div class="tree-level tree-level-leaves">
+        <div class="tree-label">Leaves</div>
+        <div class="tree-desc">
+          <strong>You decide. You act. No reporting needed.</strong> Low risk, automatic, part of daily flow.
+          <div class="tree-example">AV example: adjusting LED brightness, basic room setup, standard equipment checks.</div>
+        </div>
+      </div>
+      <div class="tree-level tree-level-branches">
+        <div class="tree-label">Branches</div>
+        <div class="tree-desc">
+          <strong>You decide. You act. Then you inform someone.</strong> Low-to-medium risk, may have downstream business impacts.
+          <div class="tree-example">AV example: adding uplights to a reception after a session issue, tweaking a room setup that doesn't match the diagram, swapping a failing cable/device during an event.</div>
+        </div>
+      </div>
+      <div class="tree-level tree-level-trunk">
+        <div class="tree-label">Trunk</div>
+        <div class="tree-desc">
+          <strong>You decide. You get approval. Then you act.</strong> Medium risk, medium lift. You have the solution but need a green light.
+          <div class="tree-example">AV example: comping microphones for a pressured client, recommending a specific equipment rental for a complex event, adjusting staffing for overhire coverage.</div>
+        </div>
+      </div>
+      <div class="tree-level tree-level-roots">
+        <div class="tree-label">Roots</div>
+        <div class="tree-desc">
+          <strong>High-impact decisions made jointly.</strong> High risk, hard to reverse, requires full buy-in from leadership.
+          <div class="tree-example">AV example: proposing a $9K equipment purchase instead of continued rentals, changing a vendor relationship, major workflow changes.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>How It Played Out in the Room</h3>
+    <p>Departments broke into groups and categorized their post-it decisions onto hand-drawn trees. Key observations from the share-out:</p>
+    <ul>
+      <li><strong>AV team:</strong> Had no difficulty categorizing. The challenge wasn't knowing which level a decision belongs to — it was that some decisions shift levels depending on who's on site (tech manager vs. AVOS) and how the escalation chain works for overhire coverage.</li>
+      <li><strong>Service team:</strong> Because Willis has two service managers, many "leaf" decisions become "branches" by default — they need to check with each other. Shared responsibility structurally inflates the decision level.</li>
+      <li><strong>Culinary:</strong> Chefs categorized easily. Trunk and root decisions came naturally because their work is inherently higher-stakes (ingredient changes affect dish integrity, client-facing menus).</li>
+      <li><strong>EPMs:</strong> Struggled with root-level decisions because they're long-term and compete for attention against the flood of daily leaf/branch work.</li>
+    </ul>
+
+    <h3>The Trunk Bottleneck</h3>
+    <p>Facilitator identified the trunk as the primary bottleneck: "You've already made a decision, but you have to get approval before you can execute." The stated goal is to move trunk decisions up to branches over time — empowering people to act and report rather than wait for a green light.</p>
+
+    <div class="card card-caution">
+      <h4>What the framework misses</h4>
+      <p>The Decision Tree diagnoses trunk delays as a confidence problem: people know the right answer but feel they need validation. The AV breakout told a different story. Many of our bottlenecks aren't confidence issues — they're structural: no budget at 311, no planning system, no CATs from architects, no renovation scoping involvement. No amount of individual empowerment fixes a missing budget line. The framework is useful for day-of event decisions but doesn't address the organizational infrastructure gaps that actually slow us down.</p>
+    </div>
+
+    <p>One genuinely useful example: the EPM team shared how they moved deadline management from trunk to branch by building in client-facing buffer deadlines. The real deadline is internal; the client deadline has padding. This eliminated the need to check with chefs/service/GM every time a client missed a deadline. A process change that enabled a decision-level change.</p>
+  </section>
+
+  <!-- ════════════════════════════════════════ SCORECARD ════════════════════════════════════════ -->
+  <section>
+    <h2>Scorecard Deep Dive</h2>
+    <p>This was the first time many people in the room had seen the full scorecard framework explained. Five categories, weighted to total 100%.</p>
+
+    <div class="weight-bar-container">
+      <div class="weight-row">
+        <div class="weight-label">Finance & Efficiency</div>
+        <div class="weight-bar-track"><div class="weight-bar-fill" style="width: 40%; background: var(--teal-standard);"></div></div>
+        <div class="weight-pct">40%</div>
+      </div>
+      <div class="weight-row">
+        <div class="weight-label">Revenue & Growth</div>
+        <div class="weight-bar-track"><div class="weight-bar-fill" style="width: 15%; background: var(--teal-bright);"></div></div>
+        <div class="weight-pct">15%</div>
+      </div>
+      <div class="weight-row">
+        <div class="weight-label">Customer (NPS)</div>
+        <div class="weight-bar-track"><div class="weight-bar-fill" style="width: 15%; background: var(--teal-bright);"></div></div>
+        <div class="weight-pct">15%</div>
+      </div>
+      <div class="weight-row">
+        <div class="weight-label">Employee Engagement</div>
+        <div class="weight-bar-track"><div class="weight-bar-fill" style="width: 15%; background: var(--teal-bright);"></div></div>
+        <div class="weight-pct">15%</div>
+      </div>
+      <div class="weight-row">
+        <div class="weight-label">QAA (Compliance)</div>
+        <div class="weight-bar-track"><div class="weight-bar-fill" style="width: 15%; background: var(--teal-bright);"></div></div>
+        <div class="weight-pct">15%</div>
+      </div>
+    </div>
+
+    <h3>What Each Category Contains</h3>
+
+    <div class="card">
+      <h4>Finance & Efficiency — 40%</h4>
+      <p>Four sub-categories: Cost of Goods Sold (food, nourish, alcohol, business services), Labor (full-time + part-time + benefits + insurance), Controllables (operating supplies, cleaning, repairs, contract services, utilities, plant maintenance), and EBIDAR (earnings before interest, taxes, depreciation, and rent). They use EBIDAR rather than EBITDA because the operations team has zero control over rent — that's a real estate negotiation.</p>
+      <p><strong>Why 40%:</strong> "This is the one you have the most control over." Managing to budget, protecting the bottom line so the company can reinvest in properties and people.</p>
+    </div>
+
+    <div class="card">
+      <h4>Revenue & Growth — 15%</h4>
+      <p>Three sub-categories at 5% each: Top Line, AV Revenue, Post-Contract Growth. Revenue is weighted low because "a lot of revenue is controlled by the commercial team, not the operations team." But operations enables it — client experience drives retention and upsell.</p>
+      <p><strong>Post-contract growth at 311:</strong> $600K (11% of total revenue). <strong>At Willis:</strong> $2.7M (18% of total revenue). These are meaningful numbers driven primarily by on-site upselling.</p>
+    </div>
+
+    <div class="card">
+      <h4>Customer NPS — 15%</h4>
+      <p>Single metric: Net Promoter Score. Calculated as % promoters (9-10) minus % detractors (0-6). Passives (7-8) dilute the score without contributing. Average hospitality NPS is in the 50s-60s. Convene targets 95+ and is tracking at or near 100 at both Chicago properties.</p>
+      <p><strong>Key nuance:</strong> Two 8s at the start of the year tanked 2025 scores because the survey volume was low. It took months to climb back from 77. Volume of responses matters as much as scores. The team needs more surveys returned and needs every interaction to push for 9-10, not 7-8.</p>
+    </div>
+
+    <div class="card">
+      <h4>Employee Engagement — 15%</h4>
+      <p>Based on survey scores. Moving to 2x/year surveys in 2026 (down from 4). 130+ internal promotions company-wide in 2025 (operations side only). The stated priority: transparent one-on-ones, development conversations, recognition through proper channels.</p>
+    </div>
+
+    <div class="card">
+      <h4>QAA (Compliance) — 15%</h4>
+      <p>Physical and procedural standards. Maintenance of spaces, assets, products. The framing: "if employee engagement is the soul, QAA is the body." 311 missed its QAA goal in 2025 (86.3). The plan: peer QAA walkthroughs between properties, fresh-eyes audits, whole-team accountability (not just managers), daily or at least weekly walkthroughs.</p>
+    </div>
+
+    <div class="observation">
+      <div class="observation-label">The weighting tells a story</div>
+      Finance at 40% and engagement at 15% is a 2.67:1 ratio. The organization measures what the team costs nearly three times as heavily as how the team feels. A significant portion of the day's presentations emphasized how much engagement matters — but the scorecard, the actual measurement tool, doesn't match the rhetoric. This isn't a criticism of the people presenting; it's a structural observation about what the organization optimizes for.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ SALES ════════════════════════════════════════ -->
+  <section>
+    <h2>Sales Strategy Presentation</h2>
+    <p>Presented by Jill/Phil Mabasi (VP Sales, non-NY/UK markets). Phil has been with Convene for 10 years, joined when there were only 5 locations. This was the first time the full sales strategy was presented to the operations team at this level of detail.</p>
+
+    <h3>Three Pillars for 2026</h3>
+
+    <div class="card">
+      <h4>1. Net New Business</h4>
+      <ul>
+        <li>Revenue management: educating clients on the all-inclusive package value vs. hotel F&B minimums</li>
+        <li>Prospecting tech stack: 50+ targeted emails per week, rotating between past clients, net new industries, and local companies</li>
+        <li>Knowland: a "reader board service" that shows who is meeting at competitor venues (Marriott, Hilton) — provides targeting lists</li>
+        <li>Lost business review: re-evaluating decisions to turn down business in 2025</li>
+        <li>Demand generation (Abby): Cvent optimization, Google SEO, LinkedIn targeting, short-term campaigns for gap months</li>
+        <li>Marketing events: DMC Happy Hour in March, boat event on the river, association holiday showcase, potential Brand Showcase Days with vendor activations (SF version generated $2M in new business)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>2. Account Growth</h4>
+      <ul>
+        <li>Every seller now owns specific accounts (not just Enterprise team)</li>
+        <li>Strategy: after landing one meeting, dig into what other departments, events, and cities the client operates in</li>
+        <li>Multi-city partnerships: convert one-city meetings into company-wide relationships</li>
+        <li>Client appreciation events: Cubs games, holiday cookie-making</li>
+        <li>Marketing sequences and email campaigns to nurture existing accounts</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>3. Channel Strategy</h4>
+      <ul>
+        <li>Hotel referral program (Rachel Lady leading): Convene refers guests needing rooms to partner hotels (kickback), hotels refer clients needing meeting space to Convene (kickback)</li>
+        <li>Third-party agency partnerships: companies that represent corporate clients looking for meeting space</li>
+        <li>Choose Chicago partnership: deeper engagement with city tourism/convention infrastructure</li>
+        <li>Online hotel booking on Convene website (Hotel Planner) with revenue share</li>
+      </ul>
+    </div>
+
+    <h3>Numbers That Matter to Operations</h3>
+    <div class="metrics-grid">
+      <div class="metric metric-green">
+        <div class="metric-label">2025 Chicago Revenue</div>
+        <div class="metric-value">$28M</div>
+        <div class="metric-context">121% of budget</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">2026 Goal</div>
+        <div class="metric-value">$27M</div>
+        <div class="metric-context">Slight decrease to re-baseline without legacy green business</div>
+      </div>
+      <div class="metric metric-green">
+        <div class="metric-label">311 Post-Contract Upsell</div>
+        <div class="metric-value">$600K</div>
+        <div class="metric-context">11% of 311 total revenue</div>
+      </div>
+      <div class="metric metric-green">
+        <div class="metric-label">Willis Post-Contract Upsell</div>
+        <div class="metric-value">$2.7M</div>
+        <div class="metric-context">18% of Willis total revenue</div>
+      </div>
+    </div>
+
+    <h3>What This Means for AV Day-to-Day</h3>
+    <p>Dan translated the sales strategy into operational terms: when a salesperson walks a prospect through the property, the space needs to be impeccable. Site visits are revenue events. Logos on screens, rooms set to spec, S&amp;Ds deployed, turns completed. The team is already good at this — the $2.7M in post-contract growth proves it. The upcoming session on upselling (Phoenix + Jill) will focus on solution-oriented approaches rather than pushy sales tactics.</p>
+
+    <blockquote>
+      "If you don't have it, you can't upsell it. So sometimes we have to do a little discount to get them in the door."
+      <cite>— Phil Mabasi</cite>
+    </blockquote>
+
+    <div class="observation">
+      <div class="observation-label">Translation gap</div>
+      The sales strategy was presented at a level of abstraction designed for a sales or leadership audience — demand generation, Cvent optimization, Knowland reader boards, channel strategy. Dan had to stop and reframe it in concrete terms for the operations room. Justin noted afterward that the "translating abilities" were appreciated. When a presentation requires real-time translation for its intended audience, the presentation was designed for a different audience.
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ COURTNEY ════════════════════════════════════════ -->
+  <section>
+    <h2>The Courtney Moment</h2>
+    <p>Courtney, SVP of Operations, made a brief appearance during the AV breakout. She delivered rainbow cookies from a New York Italian bakery she'd been promising for over two years. Her exact words:</p>
+    <blockquote>
+      "I'm happy to see you here. I'm gonna leave you to do things I don't understand."
+    </blockquote>
+    <p>The person accountable for operations at the executive level self-identified as not understanding what the AV team does. She was friendly, genuine, and present for approximately 90 seconds. The team has met her before but described the relationship as "we don't know each other a ton well."</p>
+  </section>
+
+  <!-- ════════════════════════════════════════ OBSERVATIONS ════════════════════════════════════════ -->
+  <section>
+    <h2>Organizational Observations</h2>
+
+    <div class="card card-accent">
+      <h4>Centralized engineering, decentralized operations, no bridge</h4>
+      <p>Pollard's AV Engineering team is remote (UK-based, with Craig as a new addition). Pollard visited Chicago for the first time just last month. The ticket system is the official interface between on-site teams and engineering, but the on-site team's lived experience is that tickets go into a queue that competes with every other property globally. Meanwhile, operational tools (flow sheets, planning, content management) are built at the property level because nothing comes from above. The org chart says these teams are connected. The day's conversations suggest they're connected by a ticket queue and occasional Slack messages.</p>
+    </div>
+
+    <div class="card card-accent">
+      <h4>Tool removal without replacement is a pattern</h4>
+      <p>ClickUp was removed. No replacement. Lasso is "4-6 weeks" away. Content management has no solution. Rental laptop email is being figured out. Property-level flow sheets are DIY. The AVOS budget at 311 was never created. These aren't individual oversights — this is an organization that announces changes faster than it implements them, and the on-site teams absorb the gap by building their own solutions.</p>
+    </div>
+
+    <div class="card card-accent">
+      <h4>"Start from the property level" protects leadership from accountability</h4>
+      <p>Every operational problem discussed in the AV breakout — flow sheets, planning, content management, training sourcing — was pushed to the property team to solve first. The stated reason: "the things I think might make sense might make no sense to anybody else." The effect: the team builds solutions that may or may not be adopted, replaced, or ignored when corporate eventually delivers a platform. Eric's question — "when does it start going from the top down?" — was the most direct challenge of the day. The answer was essentially: not yet.</p>
+    </div>
+
+    <div class="card card-accent">
+      <h4>The feedback loop is long and opaque</h4>
+      <p>The day collected a lot of information: whiteboard items, post-it votes, decision tree exercises, verbal feedback. Photos were taken. But there's no visible mechanism for turning this into accountable action. No timeline was committed to. No one said "the switcher replacement will happen by X date" or "ETC training will be scheduled in Q2." The gap between collecting feedback and acting on it is where trust erodes.</p>
+    </div>
+
+    <div class="card card-accent">
+      <h4>The day was designed for leadership to present, not to listen</h4>
+      <p>Of roughly 8 hours, approximately 6 were presentations (financial review, food/bev, decision tree lecture, scorecard, sales strategy). The AV breakout and the decision tree activity were the only blocks where the team's voice was centered. For a gathering that happens once or twice a year, and for a team that's rarely in the same room with corporate leadership, the ratio says: we have things to tell you > we need to learn from you.</p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ PERSONAL ════════════════════════════════════════ -->
+  <section>
+    <h2>My Experience of the Day</h2>
+
+    <div class="card card-caution">
+      <h4>Airtime was hard to get</h4>
+      <p>The AV breakout conversation moved at Dom's pace — fast, technical, tangent-prone. Dom is knowledgeable and clearly cares, but his facilitation style favors people who interject. I had things to contribute that didn't make it onto the board because the conversation moved before I could find an opening. The post-it prioritization (1 per person) further compressed what could be expressed.</p>
+    </div>
+
+    <div class="card card-caution">
+      <h4>Frustration with the format</h4>
+      <p>This is our one opportunity to be in the same room with people who can actually change things. The day was mostly spent being talked at. The interactive sessions were valuable but too short and too loosely facilitated to capture everything the team knows. The casual break conversations — about ZV issues, climbing plans, commuting, the VIP/Wildberg thing — were where real connection happened. That's not an accident; it's a signal about what the formal sessions aren't providing.</p>
+    </div>
+
+    <div class="card card-positive">
+      <h4>What worked</h4>
+      <p>The AV breakout, despite its flaws, surfaced real issues that might actually get fixed: the switcher, the lighting training, the fiber conversation. Dom authorized the growth-project budget redirect on the spot, which is exactly the kind of decision-making the rest of the day was trying to teach. The Pollard visit plan for March is genuinely exciting — a room-by-room walkthrough focused on daily experience rather than gear specs is exactly what this team needs.</p>
+    </div>
+
+    <div class="card">
+      <h4>Relationship notes</h4>
+      <ul>
+        <li>Justin and I work well together — we mixed the first 311 post-reno show and compiled the ZV feedback doc. He also serves as a translator for the room when presentations get abstract.</li>
+        <li>Climbing conversation with multiple colleagues — potential group outing to First Ascent when the West Loop location opens. Real connection point outside of work context.</li>
+        <li>Eric asked the hardest question of the day ("when does it start going from the top down?") and it resonated with the room even if the answer was unsatisfying.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ ACTION ITEMS ════════════════════════════════════════ -->
+  <section>
+    <h2>Items That Need Follow-Through</h2>
+    <p>These surfaced during the day. None were formally assigned with timelines. Logging them here so they don't evaporate.</p>
+
+    <div class="card card-concern">
+      <h4>Immediate (needs a ticket or action this week)</h4>
+      <ul>
+        <li>Submit ticket for lighting relay glitch (Forum/Hall) — reference previous ticket history, note that LDG contact quit</li>
+        <li>Forward ZV feedback doc (Justin/Garen) to AV helpdesk as formal ticket</li>
+        <li>Submit ticket for 311 gallery lighting iPad/Vibe hub issue</li>
+        <li>Submit ticket for V-600 HDCP toggle issue (new behavior on that input)</li>
+        <li>Confirm all rental laptops are logged into property O365 accounts (prevent license reclamation)</li>
+      </ul>
+    </div>
+
+    <div class="card card-caution">
+      <h4>Near-term (next 4-8 weeks)</h4>
+      <ul>
+        <li>V-600 switcher replacement scoping — Vince, Derek, Jess to determine exact model (V-80 vs V-160), Dom to approve from growth budget</li>
+        <li>ETC lighting training — Chicago ETC shop exists, 225 just completed first class; coordinate similar for our properties</li>
+        <li>Pollard visit to Chicago — target March, room-by-room walkthrough of daily experience issues</li>
+        <li>Lasso planning system — agreement expected in ~4 weeks per Dom</li>
+        <li>Fiber scoping conversation for the hall — separate meeting with Pollard, Dom, and on-site team</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h4>Longer-term (quarter+)</h4>
+      <ul>
+        <li>AVOS budget for 311 — acknowledged as a gap, no timeline for resolution</li>
+        <li>CATs for all rooms — dependency on original architects, proven difficult to obtain</li>
+        <li>Content management system / process — discussed but no solution identified</li>
+        <li>LED signage procurement — purpose and specs still being debated across properties</li>
+        <li>Renovation scoping involvement — acknowledged as important, process improvement unclear</li>
+        <li>Standardized data flows / flow sheets across properties — "start from property level" then potentially consolidate</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════ FOOTER ════════════════════════════════════════ -->
+  <footer class="doc-footer">
+    <p>Compiled from meeting transcript. February 2026. Convene Chicago offsite.</p>
+    <p>This document represents one IC's perspective on a full-day event. It captures what was presented, what was discussed, what was decided, and what was left unsaid. Intended as a personal reference and a record that outlasts the whiteboard photos.</p>
+  </footer>
+
+</div>
+</body>
+</html>
