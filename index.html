@@ -8,10 +8,10 @@
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Code+Pro:wght@400;500&display=swap');
 
   :root {
-    /* ── Ground & Surfaces (IBM cool gray scale) ── */
-    --text:        #161616;    /* Gray 100 — maximum contrast */
-    --text-light:  #525252;    /* Gray 70 — secondary */
-    --text-muted:  #8d8d8d;    /* Gray 50 — tertiary */
+    /* ── Ground & Surfaces ── */
+    --text:        #161616;    /* maximum contrast */
+    --text-light:  #393939;    /* secondary — strong enough to read */
+    --text-muted:  #565656;    /* tertiary — still legible on light bg */
     --ground:      #f2f4f8;    /* cool blue-white — professional, not dead */
     --cream:       #e0e0e0;    /* Gray 30 — dividers, tracks, input bgs */
     --white:       #ffffff;    /* cards, panels */
@@ -36,19 +36,19 @@
     --space-lg:    40px;
     --space-xl:    64px;
 
-    /* ── Room Fill Ramp (warm stone, text-safe) ── */
-    --room-empty:    #f0ece8;    /* warm cream — no gear */
-    --room-light:    #e2d5c8;    /* sandstone — some gear */
-    --room-moderate: #d4c0a8;    /* warm tan — populated */
-    --room-heavy:    #c4a888;    /* camel — substantial */
-    --room-dense:    #b49068;    /* tawny — packed, still readable */
+    /* ── Room Fill Ramp (saturated blue, bright even when light) ── */
+    --room-empty:    #e8f0fe;    /* sky tint — no gear */
+    --room-light:    #c2d8fc;    /* periwinkle wash — some gear */
+    --room-moderate: #8ab4f8;    /* cornflower — populated */
+    --room-heavy:    #5994f0;    /* bright blue — substantial */
+    --room-dense:    #3478e8;    /* vivid blue — packed, white text safe */
 
-    /* ── Room Stroke (clear definition against fills) ── */
-    --stroke-empty:    #d4c8b8;
-    --stroke-light:    #c4b8a4;
-    --stroke-moderate: #b4a890;
-    --stroke-heavy:    #a4987c;
-    --stroke-dense:    #947c60;
+    /* ── Room Stroke (saturated to match fills) ── */
+    --stroke-empty:    #c4d4f0;
+    --stroke-light:    #a0bce8;
+    --stroke-moderate: #6e9ae0;
+    --stroke-heavy:    #4a80d8;
+    --stroke-dense:    #2a68cc;
 
     /* ── Status Colors (IBM-derived, production-mapped) ── */
     --status-set:    #198038;   /* IBM Green 60 — "placed, go" */
@@ -671,8 +671,7 @@
   .room:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .room.selected {
     stroke: var(--accent);
-    stroke-width: 2.4;
-    filter: drop-shadow(0 0 12px var(--accent-glow));
+    stroke-width: 1.5;
   }
 
   .room.i0 { fill: var(--room-empty); stroke: var(--stroke-empty); filter: url(#room-depth-empty); }
@@ -716,51 +715,10 @@
     transition: opacity 0.4s ease;
   }
 
-  /* ─── Animations ─── */
-  @keyframes contentReveal {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  #detailContent.revealing > * {
-    animation: contentReveal 300ms var(--ease-smooth) backwards;
-  }
-  #detailContent.revealing > :nth-child(1) { animation-delay: 0ms; }
-  #detailContent.revealing > :nth-child(2) { animation-delay: 50ms; }
-  #detailContent.revealing > :nth-child(3) { animation-delay: 100ms; }
-  #detailContent.revealing > :nth-child(4) { animation-delay: 150ms; }
-  #detailContent.revealing > :nth-child(5) { animation-delay: 200ms; }
-  #detailContent.revealing > :nth-child(n+6) { animation-delay: 240ms; }
-
-  @keyframes checkPop {
-    0% { transform: scale(1); }
-    30% { transform: scale(1.35); }
-    60% { transform: scale(0.9); }
-    100% { transform: scale(1); }
-  }
+  /* ─── Minimal Transitions (no staggered animations) ─── */
   .check-box.popping {
-    animation: checkPop 0.35s var(--ease-spring);
+    transition: transform 0.15s var(--ease-smooth);
   }
-
-  /* Selected room subtle pulse */
-  @keyframes selectedPulse {
-    0%, 100% { filter: drop-shadow(0 0 10px var(--accent-glow)); }
-    50% { filter: drop-shadow(0 0 18px rgba(15, 98, 254, 0.30)); }
-  }
-  .room.selected {
-    animation: selectedPulse 2.5s ease-in-out infinite;
-  }
-
-
-  /* Checklist row stagger on reveal */
-  .checklist-row {
-    animation: contentReveal 250ms var(--ease-smooth) backwards;
-  }
-  .checklist-row:nth-child(1) { animation-delay: 80ms; }
-  .checklist-row:nth-child(2) { animation-delay: 120ms; }
-  .checklist-row:nth-child(3) { animation-delay: 160ms; }
-  .checklist-row:nth-child(4) { animation-delay: 200ms; }
-  .checklist-row:nth-child(5) { animation-delay: 240ms; }
-  .checklist-row:nth-child(n+6) { animation-delay: 280ms; }
 
   /* Status bar smooth fill */
   .compact-fill {
@@ -1248,23 +1206,8 @@
     text-align: right;
   }
 
-  /* ─── Tooltip ─── */
-  .svg-tooltip {
-    position: fixed;
-    background: var(--text);
-    color: var(--white);
-    font-family: var(--font-body);
-    font-size: var(--type-sm);
-    padding: 0.3rem 0.65rem;
-    border-radius: 6px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-    z-index: 100;
-    white-space: nowrap;
-    box-shadow: 0 3px 10px var(--shadow-near);
-  }
-  .svg-tooltip.visible { opacity: 1; }
+  /* ─── Tooltip (disabled — rooms are self-labeling) ─── */
+  .svg-tooltip { display: none; }
 
   /* ─── Accessibility ─── */
   @media (prefers-reduced-motion: reduce) {
@@ -2006,9 +1949,6 @@ function init() {
     el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectRoom(el); }
     });
-    el.addEventListener('mouseenter', (e) => showTooltip(el, e));
-    el.addEventListener('mousemove', positionTooltip);
-    el.addEventListener('mouseleave', hideTooltip);
   });
 
   // Populate mobile room selector
@@ -2171,6 +2111,23 @@ function updateRoomStates() {
 
     el.classList.remove('i0', 'i1', 'i2', 'i3', 'i4');
     el.classList.add('i' + intensity);
+
+    // Flip labels to white on dark fills (heavy/dense in gear mode)
+    const needsWhiteText = intensityMode === 'gear' && intensity >= 3;
+    const labelColor = needsWhiteText ? '#ffffff' : '';
+    const subColor = needsWhiteText ? 'rgba(255,255,255,0.8)' : '';
+    // Walk sibling text elements until next .room rect
+    let sib = el.nextElementSibling;
+    while (sib && !sib.classList.contains('room') && !sib.classList.contains('divider-line')) {
+      if (sib.tagName === 'text') {
+        if (sib.classList.contains('label-room')) {
+          sib.style.fill = labelColor;
+        } else if (sib.classList.contains('label-sub') || sib.classList.contains('label-count')) {
+          sib.style.fill = subColor;
+        }
+      }
+      sib = sib.nextElementSibling;
+    }
 
     if (intensityMode === 'setup') {
       el.style.fill = `var(--set-${intensity}-fill)`;
