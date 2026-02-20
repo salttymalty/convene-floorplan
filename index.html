@@ -15,8 +15,8 @@
     --ground:      #f2f4f8;    /* cool blue-white — professional, not dead */
     --cream:       #e0e0e0;    /* Gray 30 — dividers, tracks, input bgs */
     --white:       #ffffff;    /* cards, panels */
-    --shadow-near: hsla(220, 10%, 20%, 0.08);
-    --shadow-far:  hsla(220, 10%, 30%, 0.05);
+    --shadow-near: hsla(25, 40%, 30%, 0.08);
+    --shadow-far:  hsla(25, 30%, 40%, 0.05);
     --radius:      8px;
     --radius-sm:   6px;
 
@@ -36,19 +36,19 @@
     --space-lg:    40px;
     --space-xl:    64px;
 
-    /* ── Room Fill Ramp (blue-tinted, text-safe) ── */
-    --room-empty:    #edf0f4;    /* faint blue-gray — no gear */
-    --room-light:    #d8dfe8;    /* light steel — some gear */
-    --room-moderate: #c2ccda;    /* cool periwinkle — populated */
-    --room-heavy:    #adb9cb;    /* steel blue — substantial */
-    --room-dense:    #97a6bc;    /* slate — packed, still readable */
+    /* ── Room Fill Ramp (warm stone, text-safe) ── */
+    --room-empty:    #f0ece8;    /* warm cream — no gear */
+    --room-light:    #e2d5c8;    /* sandstone — some gear */
+    --room-moderate: #d4c0a8;    /* warm tan — populated */
+    --room-heavy:    #c4a888;    /* camel — substantial */
+    --room-dense:    #b49068;    /* tawny — packed, still readable */
 
     /* ── Room Stroke (clear definition against fills) ── */
-    --stroke-empty:    #cdd2da;
-    --stroke-light:    #b5becc;
-    --stroke-moderate: #9eaabc;
-    --stroke-heavy:    #8998ae;
-    --stroke-dense:    #7486a0;
+    --stroke-empty:    #d4c8b8;
+    --stroke-light:    #c4b8a4;
+    --stroke-moderate: #b4a890;
+    --stroke-heavy:    #a4987c;
+    --stroke-dense:    #947c60;
 
     /* ── Status Colors (IBM-derived, production-mapped) ── */
     --status-set:    #198038;   /* IBM Green 60 — "placed, go" */
@@ -654,7 +654,7 @@
 
   .room {
     cursor: pointer;
-    stroke-width: 0.6;
+    stroke-width: 0.7;
     transition: fill 0.3s var(--ease-smooth), stroke 0.3s var(--ease-smooth),
                 filter 0.25s ease-out, stroke-width 0.2s var(--ease-smooth),
                 opacity 0.3s ease;
@@ -675,11 +675,11 @@
     filter: drop-shadow(0 0 12px var(--accent-glow));
   }
 
-  .room.i0 { fill: var(--room-empty); stroke: var(--stroke-empty); }
-  .room.i1 { fill: var(--room-light); stroke: var(--stroke-light); }
-  .room.i2 { fill: var(--room-moderate); stroke: var(--stroke-moderate); }
-  .room.i3 { fill: var(--room-heavy); stroke: var(--stroke-heavy); }
-  .room.i4 { fill: var(--room-dense); stroke: var(--stroke-dense); }
+  .room.i0 { fill: var(--room-empty); stroke: var(--stroke-empty); filter: url(#room-depth-empty); }
+  .room.i1 { fill: var(--room-light); stroke: var(--stroke-light); filter: url(#room-depth); }
+  .room.i2 { fill: var(--room-moderate); stroke: var(--stroke-moderate); filter: url(#room-depth); }
+  .room.i3 { fill: var(--room-heavy); stroke: var(--stroke-heavy); filter: url(#room-depth); }
+  .room.i4 { fill: var(--room-dense); stroke: var(--stroke-dense); filter: url(#room-depth); }
 
   .room.dimmed {
     opacity: 0.30;
@@ -774,18 +774,19 @@
 
   .label-room {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 12px; font-weight: 600;
+    font-size: 14px; font-weight: 600;
     fill: var(--text); text-anchor: middle;
     pointer-events: none;
     dominant-baseline: central;
   }
+  .label-room.gallery { font-size: 13px; font-weight: 600; }
   .label-room.sm { font-size: 12px; fill: var(--text); font-weight: 500; }
   .label-room.xs { font-size: 12px; fill: var(--text-light); font-weight: 500; }
 
   .label-count {
     font-family: 'Source Code Pro', monospace;
-    font-size: 12px; font-weight: 500;
-    fill: var(--text-light); text-anchor: middle;
+    font-size: 12px; font-weight: 400;
+    fill: var(--text-muted); text-anchor: middle;
     pointer-events: none;
     dominant-baseline: central;
     transition: opacity 0.3s;
@@ -793,11 +794,17 @@
 
   .label-sub {
     font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 12px; font-weight: 500;
-    fill: var(--text-light); text-anchor: middle;
+    font-size: 12px; font-weight: 400;
+    fill: var(--text-muted); text-anchor: middle;
     pointer-events: none;
     dominant-baseline: central;
   }
+
+  /* ── Room Type Differentiation ── */
+  .room-gallery  { stroke-width: 0.9; }
+  .room-meeting  { stroke-width: 0.8; }
+  .room-studio   { stroke-width: 0.7; }
+  .room-service  { stroke-width: 0.5; stroke-dasharray: 4 2; }
 
   .entrance-marker {
     fill: var(--accent); stroke: none; opacity: 0.6;
@@ -1384,110 +1391,134 @@
         <feGaussianBlur stdDeviation="2" result="blur"/>
         <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
       </filter>
+      <!-- Warm inset shadow for gear-loaded rooms (i1-i4) -->
+      <filter id="room-depth" x="-5%" y="-5%" width="110%" height="120%">
+        <feFlood flood-color="hsla(25, 30%, 25%, 1)" flood-opacity="0.12" result="shadow-color"/>
+        <feComposite in="shadow-color" in2="SourceGraphic" operator="in" result="shadow-shape"/>
+        <feOffset dx="0" dy="1" result="shadow-offset"/>
+        <feGaussianBlur stdDeviation="2" result="shadow-blur"/>
+        <feComposite in="shadow-blur" in2="SourceGraphic" operator="atop" result="shadow-inset"/>
+        <feMerge>
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="shadow-inset"/>
+        </feMerge>
+      </filter>
+      <!-- Lighter inset shadow for empty rooms (i0) -->
+      <filter id="room-depth-empty" x="-5%" y="-5%" width="110%" height="120%">
+        <feFlood flood-color="hsla(25, 30%, 25%, 1)" flood-opacity="0.06" result="shadow-color"/>
+        <feComposite in="shadow-color" in2="SourceGraphic" operator="in" result="shadow-shape"/>
+        <feOffset dx="0" dy="1" result="shadow-offset"/>
+        <feGaussianBlur stdDeviation="1.5" result="shadow-blur"/>
+        <feComposite in="shadow-blur" in2="SourceGraphic" operator="atop" result="shadow-inset"/>
+        <feMerge>
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="shadow-inset"/>
+        </feMerge>
+      </filter>
     </defs>
 
     <!-- Building shell + corridors -->
-    <rect class="building-outline" x="3" y="18" width="854" height="710" rx="3"/>
+    <rect class="building-outline" x="3" y="18" width="854" height="710" rx="6"/>
     <rect class="corridor" x="95" y="148" width="520" height="290" rx="1"/>
     <rect class="corridor" x="130" y="80" width="480" height="68"/>
     <rect class="corridor" x="225" y="438" width="350" height="30"/>
 
     <!-- ═══ ADAMS GALLERY ═══ -->
-    <rect class="room" data-room="adams-g" x="5" y="22" width="395" height="52" rx="3"
+    <rect class="room room-gallery" data-room="adams-g" x="5" y="22" width="395" height="52" rx="8"
           tabindex="0" role="button" aria-label="Adams Gallery"/>
-    <text class="label-room sm" x="203" y="52">ADAMS GALLERY</text>
+    <text class="label-room gallery" x="203" y="52">Adams Gallery</text>
 
     <!-- ═══ FORUM ═══ -->
-    <rect class="room" data-room="forum" x="625" y="22" width="195" height="88" rx="3"
+    <rect class="room room-gallery" data-room="forum" x="625" y="22" width="195" height="88" rx="8"
           tabindex="0" role="button" aria-label="Forum Combined"/>
-    <text class="label-room" x="722" y="56">FORUM</text>
-    <text class="label-room sm" x="722" y="72">COMBINED</text>
+    <text class="label-room" x="722" y="56">Forum</text>
+    <text class="label-sub" x="722" y="72">Combined</text>
     <text class="label-count" data-count-for="forum" x="722" y="88"></text>
     <line class="divider-line" x1="625" y1="112" x2="820" y2="112"/>
 
     <!-- ═══ FORUM SOUTH ═══ -->
-    <rect class="room" data-room="forum-s" x="625" y="113" width="195" height="80" rx="3"
+    <rect class="room room-studio" data-room="forum-s" x="625" y="113" width="195" height="80" rx="6"
           tabindex="0" role="button" aria-label="Forum South"/>
-    <text class="label-room sm" x="722" y="157">FORUM SOUTH</text>
+    <text class="label-room sm" x="722" y="157">Forum South</text>
 
     <!-- ═══ ADAMS STUDIO ═══ -->
-    <rect class="room" data-room="adams-st" x="5" y="79" width="108" height="55" rx="3"
+    <rect class="room room-studio" data-room="adams-st" x="5" y="79" width="108" height="55" rx="6"
           tabindex="0" role="button" aria-label="Adams Studio"/>
-    <text class="label-room sm" x="59" y="104">ADAMS STUDIO</text>
+    <text class="label-room sm" x="59" y="104">Adams Studio</text>
     <text class="label-count" data-count-for="adams-st" x="59" y="121"></text>
 
     <!-- ═══ BOARDROOMS ═══ -->
-    <rect class="room" data-room="khan" x="125" y="82" width="78" height="48" rx="3"
+    <rect class="room room-meeting" data-room="khan" x="125" y="82" width="78" height="48" rx="6"
           tabindex="0" role="button" aria-label="Khan Boardroom"/>
-    <text class="label-room xs" x="164" y="110">KHAN</text>
+    <text class="label-room xs" x="164" y="110">Khan</text>
 
-    <rect class="room" data-room="olmstead" x="210" y="82" width="78" height="48" rx="3"
+    <rect class="room room-meeting" data-room="olmstead" x="210" y="82" width="78" height="48" rx="6"
           tabindex="0" role="button" aria-label="Olmstead Boardroom"/>
-    <text class="label-room xs" x="249" y="110">OLMSTEAD</text>
+    <text class="label-room xs" x="249" y="110">Olmstead</text>
 
-    <rect class="room" data-room="farrand" x="5" y="148" width="120" height="48" rx="3"
+    <rect class="room room-meeting" data-room="farrand" x="5" y="148" width="120" height="48" rx="6"
           tabindex="0" role="button" aria-label="Farrand Boardroom"/>
-    <text class="label-room xs" x="65" y="176">FARRAND</text>
+    <text class="label-room xs" x="65" y="176">Farrand</text>
 
-    <rect class="room" data-room="miller" x="5" y="208" width="70" height="42" rx="3"
+    <rect class="room room-meeting" data-room="miller" x="5" y="208" width="70" height="42" rx="6"
           tabindex="0" role="button" aria-label="Miller Boardroom"/>
-    <text class="label-room xs" x="40" y="233">MILLER</text>
+    <text class="label-room xs" x="40" y="233">Miller</text>
 
     <!-- ═══ WACKER STUDIO ═══ -->
-    <rect class="room" data-room="wacker-st" x="5" y="262" width="85" height="100" rx="3"
+    <rect class="room room-studio" data-room="wacker-st" x="5" y="262" width="85" height="100" rx="6"
           tabindex="0" role="button" aria-label="Wacker Studio"/>
-    <text class="label-room sm" x="48" y="305">WACKER</text>
-    <text class="label-sub" x="48" y="320">STUDIO</text>
+    <text class="label-room sm" x="48" y="305">Wacker</text>
+    <text class="label-sub" x="48" y="320">Studio</text>
     <text class="label-count" data-count-for="wacker-st" x="48" y="337"></text>
 
     <!-- ═══ WACKER GALLERY ═══ -->
-    <rect class="room" data-room="wacker-g" x="5" y="374" width="52" height="155" rx="3"
+    <rect class="room room-gallery" data-room="wacker-g" x="5" y="374" width="52" height="155" rx="8"
           tabindex="0" role="button" aria-label="Wacker Gallery"/>
-    <text class="label-room xs" x="31" y="452" transform="rotate(-90 31 452)">WACKER GALLERY</text>
+    <text class="label-room xs" x="31" y="452" transform="rotate(-90 31 452)">Wacker Gallery</text>
 
     <!-- ═══ FRANKLIN GALLERY ═══ -->
-    <rect class="room" data-room="franklin-g" x="625" y="200" width="195" height="228" rx="3"
+    <rect class="room room-gallery" data-room="franklin-g" x="625" y="200" width="195" height="228" rx="8"
           tabindex="0" role="button" aria-label="Franklin Gallery"/>
-    <text class="label-room sm" x="722" y="308">FRANKLIN</text>
-    <text class="label-sub" x="722" y="326">GALLERY</text>
+    <text class="label-room gallery" x="722" y="308">Franklin</text>
+    <text class="label-sub" x="722" y="326">Gallery</text>
 
     <!-- ═══ SERVICE ═══ -->
-    <rect class="room" data-room="elev" x="265" y="335" width="108" height="48" rx="3"
+    <rect class="room room-service" data-room="elev" x="265" y="335" width="108" height="48" rx="4"
           tabindex="0" role="button" aria-label="Elevator Bank Hallway"/>
-    <text class="label-room xs" x="319" y="363">ELEVATORS</text>
+    <text class="label-room xs" x="319" y="363">Elevators</text>
 
-    <rect class="room" data-room="green" x="625" y="432" width="60" height="45" rx="3"
+    <rect class="room room-service" data-room="green" x="625" y="432" width="60" height="45" rx="4"
           tabindex="0" role="button" aria-label="Green Room"/>
-    <text class="label-room xs" x="655" y="458">GREEN RM</text>
+    <text class="label-room xs" x="655" y="458">Green Rm</text>
 
     <!-- Entrance marker -->
     <polygon class="entrance-marker" points="185,343 191,353 179,353"/>
-    <text class="entrance-label" x="185" y="365">ENTRANCE</text>
+    <text class="entrance-label" x="185" y="365">Entrance</text>
 
     <!-- ═══ HALL ═══ -->
-    <rect class="room" data-room="hall" x="580" y="482" width="235" height="135" rx="3"
+    <rect class="room room-gallery" data-room="hall" x="580" y="482" width="235" height="135" rx="8"
           tabindex="0" role="button" aria-label="Hall Combined"/>
-    <text class="label-room" x="698" y="538">HALL</text>
-    <text class="label-room sm" x="698" y="554">COMBINED</text>
+    <text class="label-room" x="698" y="538">Hall</text>
+    <text class="label-sub" x="698" y="554">Combined</text>
     <text class="label-count" data-count-for="hall" x="698" y="570"></text>
     <line class="divider-line" x1="580" y1="619" x2="815" y2="619"/>
 
     <!-- ═══ HALL SOUTH ═══ -->
-    <rect class="room" data-room="hall-s" x="580" y="621" width="235" height="90" rx="3"
+    <rect class="room room-studio" data-room="hall-s" x="580" y="621" width="235" height="90" rx="6"
           tabindex="0" role="button" aria-label="Hall South"/>
-    <text class="label-room" x="698" y="662">HALL SOUTH</text>
+    <text class="label-room" x="698" y="662">Hall South</text>
     <text class="label-count" data-count-for="hall-s" x="698" y="679"></text>
 
     <!-- ═══ HUB ═══ -->
-    <rect class="room" data-room="hub" x="5" y="535" width="215" height="118" rx="3"
+    <rect class="room room-gallery" data-room="hub" x="5" y="535" width="215" height="118" rx="8"
           tabindex="0" role="button" aria-label="Hub"/>
-    <text class="label-room" x="113" y="590">HUB</text>
+    <text class="label-room" x="113" y="590">Hub</text>
     <text class="label-count" data-count-for="hub" x="113" y="608"></text>
 
     <!-- ═══ JACKSON GALLERY ═══ -->
-    <rect class="room" data-room="jackson-g" x="225" y="558" width="340" height="92" rx="3"
+    <rect class="room room-gallery" data-room="jackson-g" x="225" y="558" width="340" height="92" rx="8"
           tabindex="0" role="button" aria-label="Jackson Gallery"/>
-    <text class="label-room sm" x="395" y="608">JACKSON GALLERY</text>
+    <text class="label-room gallery" x="395" y="608">Jackson Gallery</text>
 
     <!-- Terraces (decorative) -->
     <rect x="3" y="732" width="120" height="14" rx="2" fill="none" stroke="var(--cream)" stroke-width="0.4" stroke-dasharray="3 2"/>
