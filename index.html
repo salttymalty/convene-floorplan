@@ -2235,13 +2235,33 @@ function createRoomStatusBars() {
     const roomId = el.dataset.room;
     const bbox = el.getBBox();
 
-    const barH = 5, gap = 2;
+    const barH = 4, gap = 2;
+    const barsTotal = barH * 2 + gap; // 10px for both bars
     const margin = Math.min(bbox.width * 0.06, 8);
     const barX = bbox.x + margin;
     const maxW = bbox.width - margin * 2;
-    const barY = bbox.y + bbox.height - (barH * 2 + gap) - 5;
 
-    if (maxW < 24 || bbox.height < 30) return;
+    // Find the lowest text label associated with this room
+    let lowestTextY = bbox.y;
+    let sib = el.nextElementSibling;
+    while (sib && !sib.classList.contains('room') && !sib.classList.contains('divider-line')) {
+      if (sib.tagName === 'text') {
+        const ty = parseFloat(sib.getAttribute('y') || 0);
+        if (ty > lowestTextY) lowestTextY = ty;
+      }
+      sib = sib.nextElementSibling;
+    }
+
+    // Space below text descenders to room bottom
+    const textBottom = lowestTextY + 6; // 6px for descenders
+    const roomBottom = bbox.y + bbox.height;
+    const spaceBelow = roomBottom - textBottom;
+
+    // Skip if room too narrow or not enough space for bars + padding
+    if (maxW < 24 || spaceBelow < barsTotal + 4) return;
+
+    // Bars flush to bottom, 3px padding
+    const barY = roomBottom - barsTotal - 3;
 
     const g = svgEl('g', {});
     g.dataset.statusFor = roomId;
