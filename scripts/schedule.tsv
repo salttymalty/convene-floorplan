@@ -1,0 +1,41 @@
+room_id	day	notes	use_default_items	active
+hall	2/9	Load-in + tech check 3p–5p.	Y	Y
+hall	2/10	Combined config. VOG recordings.	Y	Y
+hall	2/11	Combined config. VOG recordings.	Y	Y
+hall	2/12	Hall North only — south gets own rig.	Y	Y
+hall-s	2/9	Not in use.	N	N
+hall-s	2/10	Part of Hall Combined.	N	N
+hall-s	2/11	Part of Hall Combined.	N	N
+hall-s	2/12	No Zoom. Simplified setup.	N	Y
+hub	2/9	Not in use.	N	N
+hub	2/10	Not in use.	N	N
+hub	2/11	May add mic on site — notify Vince.	Y	Y
+hub	2/12	May add mic on site — notify Vince.	Y	Y
+forum	2/9	Not in use.	N	N
+forum	2/10	Combined config.	Y	Y
+forum	2/11	Combined config.	Y	Y
+forum	2/12	Forum North only — divides N/S.	Y	Y
+forum-s	2/10	Part of Forum Combined.	N	N
+forum-s	2/11	Part of Forum Combined.	N	N
+forum-s	default	No gear assigned.	N	N
+wacker-st	2/9	Not in use.	N	N
+wacker-st	2/10	Not in use.	N	N
+wacker-st	2/11	Zoom room.	Y	Y
+wacker-st	2/12	Zoom room.	Y	Y
+adams-st	2/9	Not in use.	N	N
+adams-st	2/10	Not in use.	N	N
+adams-st	2/11	Zoom room.	Y	Y
+adams-st	2/12	Zoom room.	Y	Y
+elev	2/9	Not in use.	N	N
+elev	2/10	Registration desk power.	Y	Y
+elev	2/11	Registration desk power.	Y	Y
+elev	2/12	Registration desk power.	Y	Y
+khan	default	No gear assigned.	N	N
+olmstead	default	No gear assigned.	N	N
+farrand	default	No gear assigned.	N	N
+miller	default	No gear assigned.	N	N
+adams-g	default	No gear assigned.	N	N
+wacker-g	default	No gear assigned.	N	N
+jackson-g	default	No gear assigned.	N	N
+franklin-g	default	No gear assigned.	N	N
+green	default	Talent / speaker holding.	N	N

@@ -1302,6 +1302,60 @@
     .plan-card { display: block; }
     .plan-layout { grid-template-columns: 1fr var(--sidebar-collapsed); }
   }
+
+  /* ─── Live Data Indicator ─── */
+  .live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.5rem;
+    white-space: nowrap;
+  }
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--status-flag);
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .live-dot.live { background: var(--status-set); }
+  .live-dot.cached { background: var(--status-ready); }
+  .live-dot.offline { background: var(--status-flag); }
+  .live-label {
+    font-family: var(--font-mono);
+    font-size: var(--type-xs);
+    color: var(--text-muted);
+  }
+
+  /* ─── Toast Notification ─── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    font-family: var(--font-body);
+    font-size: var(--type-sm);
+    font-weight: 500;
+    color: var(--white);
+    background: var(--text);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 16px var(--shadow-near);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms var(--ease-smooth), transform 300ms var(--ease-smooth);
+    z-index: 1000;
+  }
+  .toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media print {
+    .live-indicator { display: none; }
+    .toast { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -1356,6 +1410,11 @@
   <div class="search-box">
     <input type="search" id="searchInput" placeholder="Search gear, rooms, crew..." aria-label="Search equipment">
     <span class="search-count" id="searchCount"></span>
+  </div>
+
+  <div class="live-indicator" id="liveIndicator">
+    <span class="live-dot" id="liveDot"></span>
+    <span class="live-label" id="liveLabel">Offline</span>
   </div>
 </div>
 
@@ -1580,6 +1639,9 @@
 <!-- Tooltip element -->
 <div class="svg-tooltip" id="tooltip"></div>
 
+<!-- Toast notification for live data updates -->
+<div class="toast" id="toast">Data updated</div>
+
 <script src="data/g2-conference.js"></script>
 <script>
 /* ═══════════════════════════════════════════
@@ -1644,6 +1706,177 @@ const StateManager = {
     return { set: setCount, test: testCount, total };
   },
 };
+
+/* ═══════════════════════════════════════════
+   LIVE DATA — fetch from Google Apps Script API
+   ═══════════════════════════════════════════ */
+
+const LIVE_API_URL = ''; // Set to Apps Script deployment URL to enable live data
+
+const DataLoader = {
+  _hash: '',
+  _pollTimer: null,
+  _POLL_VISIBLE: 30000,   // 30s when tab is visible
+  _POLL_HIDDEN: 120000,   // 2min when tab is hidden
+  _CACHE_KEY: 'floorplan-data-cache',
+
+  init() {
+    if (!LIVE_API_URL) {
+      this.setStatus('offline');
+      return;
+    }
+    this.fetch();
+    this.startPolling();
+  },
+
+  fetch() {
+    const self = this;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+
+    fetch(LIVE_API_URL, { signal: controller.signal })
+      .then(function(res) {
+        clearTimeout(timeout);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        if (data.error) throw new Error(data.error);
+
+        // Cache for offline use
+        try { localStorage.setItem(self._CACHE_KEY, JSON.stringify(data)); } catch(e) {}
+
+        // Check if data actually changed
+        var newHash = JSON.stringify(data);
+        if (newHash === self._hash) return; // No change — skip re-render
+        self._hash = newHash;
+
+        // Overwrite the global EVENT_DATA
+        EVENT_DATA.event = data.event;
+        EVENT_DATA.rooms = data.rooms;
+
+        refreshAllViews();
+        self.setStatus('live');
+        self.showToast('Data updated');
+      })
+      .catch(function(err) {
+        clearTimeout(timeout);
+        // Try localStorage cache
+        try {
+          var cached = localStorage.getItem(self._CACHE_KEY);
+          if (cached) {
+            var data = JSON.parse(cached);
+            var cachedHash = JSON.stringify(data);
+            if (cachedHash !== self._hash) {
+              self._hash = cachedHash;
+              EVENT_DATA.event = data.event;
+              EVENT_DATA.rooms = data.rooms;
+              refreshAllViews();
+            }
+            self.setStatus('cached');
+            return;
+          }
+        } catch(e) {}
+
+        // Neither API nor cache — keep bundled data
+        self.setStatus('offline');
+      });
+  },
+
+  startPolling() {
+    const self = this;
+
+    function poll() {
+      self._pollTimer = setTimeout(function() {
+        self.fetch();
+        poll();
+      }, document.hidden ? self._POLL_HIDDEN : self._POLL_VISIBLE);
+    }
+    poll();
+
+    // Adjust rate on visibility change + immediate fetch on re-focus
+    document.addEventListener('visibilitychange', function() {
+      if (self._pollTimer) {
+        clearTimeout(self._pollTimer);
+        self._pollTimer = null;
+      }
+      if (!document.hidden) {
+        self.fetch(); // Immediate fetch on tab re-focus
+      }
+      poll();
+    });
+  },
+
+  setStatus(status) {
+    var dot = document.getElementById('liveDot');
+    var label = document.getElementById('liveLabel');
+    if (!dot || !label) return;
+    dot.className = 'live-dot ' + status;
+    var labels = { live: 'Live', cached: 'Cached', offline: 'Offline' };
+    label.textContent = labels[status] || 'Offline';
+  },
+
+  showToast(msg) {
+    var el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('visible');
+    setTimeout(function() { el.classList.remove('visible'); }, 3000);
+  },
+};
+
+/**
+ * Re-render all data-dependent views after a live data update.
+ * Preserves UI state (selected room, scroll position).
+ */
+function refreshAllViews() {
+  // Check if day structure changed (new days added/removed)
+  var currentButtons = daySwitcher.querySelectorAll('.day-tab');
+  var daysChanged = currentButtons.length !== EVENT_DATA.event.days.length;
+  if (!daysChanged) {
+    currentButtons.forEach(function(btn, i) {
+      if (btn.dataset.day !== EVENT_DATA.event.days[i]) daysChanged = true;
+    });
+  }
+
+  if (daysChanged) {
+    // Rebuild day switcher
+    daySwitcher.innerHTML = '';
+    EVENT_DATA.event.days.forEach(function(day) {
+      var btn = document.createElement('button');
+      btn.className = 'day-tab' + (day === currentDay ? ' active' : '');
+      btn.dataset.day = day;
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', day === currentDay);
+      var label = EVENT_DATA.event.dayLabels[day] || '';
+      btn.innerHTML = '<span class="day-date">' + day + '</span><span class="day-label">' + label + '</span>';
+      btn.addEventListener('click', function() { setDay(day); });
+      daySwitcher.appendChild(btn);
+    });
+
+    // If current day no longer exists, switch to default
+    if (EVENT_DATA.event.days.indexOf(currentDay) === -1) {
+      currentDay = EVENT_DATA.event.defaultDay || EVENT_DATA.event.days[0];
+    }
+  }
+
+  // Update header
+  document.getElementById('venueName').textContent = EVENT_DATA.event.venue;
+  document.getElementById('venueAddr').textContent = EVENT_DATA.event.address;
+  document.title = EVENT_DATA.event.venue + ' \u2014 Floor Plan';
+
+  // Re-render all views
+  updateRoomStates();
+  renderPullSheet();
+  updateProgressRings();
+  updateAllStatusBars();
+  buildRoomSelector();
+
+  // Refresh room detail if one is selected
+  if (selectedEl) {
+    renderRoomDetail(selectedEl.dataset.room);
+  }
+}
 
 /* ═══════════════════════════════════════════
    APP — Data-driven floor plan + checklist
@@ -1816,6 +2049,9 @@ function init() {
   createRoomStatusBars();
   updateAllStatusBars();
   handleHash();
+
+  // Start live data loading (no-op if LIVE_API_URL is empty)
+  DataLoader.init();
 }
 
 /* ═══════════════════════════════════════════

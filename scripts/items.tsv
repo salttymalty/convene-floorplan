@@ -1,0 +1,50 @@
+room_id	day	category	name	qty	location	source	note	flag	sort_order
+hall	*	audio	Mixer	1	Tech Table	Convene			0
+hall	*	audio	Microphone HH	5	Tech Table				1
+hall	*	audio	Microphone LAV	1	Tech Table				2
+hall	*	audio	DI	3			Content PlaybackPro + audio playback		3
+hall	*	audio	Audio Playback Laptop	1	Tech Table		PlaybackPro for V1		4
+hall	*	audio	Aux Out → BM Web Presenter	1	Tech Table				5
+hall	*	video	Switcher	1	Tech Table				6
+hall	*	video	Confidence Monitor	2	Downstage		PGM and Notes		7
+hall	*	video	Playback Pro	1	Tech Table		A1 — VOGs, walk-up music		8
+hall	*	video	PTZ Camera	1	Back of Room	Hartford		Hartford tripod + spider pod	9
+hall	*	video	BlackMagic Web Presenter	1	Tech Table				10
+hall	*	video	PGM Out → BM Web Presenter	1	Tech Table				11
+hall	*	control	Stream Deck	1	Tech Table		2 pres laptops + 1 PlaybackPro		12
+hall	*	control	PTZ Controller	1	Tech Table	Hartford	Skye 2/10 only. Wide static rest.		13
+hall	*	control	Speaker Timer	1	Downstage				14
+hall	*	presentation	Laptop (Client)	2	Tech Table	Client	Content + notes		15
+hall	*	presentation	Zoom Laptop	1	Tech Table				16
+hall-s	2/12	audio	Mixer	1	Tech Table				0
+hall-s	2/12	audio	Microphone LAV	1	Tech Table				1
+hall-s	2/12	cables	HDMI	1	Podium				2
+hall-s	2/12	presentation	Laptop (Client)	1	Podium	Client			3
+hall-s	2/12	control	Perfect Cue (small)	1	Podium				4
+hub	*	audio	Mixer	1	Tech Table				0
+hub	*	audio	Microphone LAV	1	Tech Table		Possible add — check w/ Vince		1
+hub	*	video	Zoom Laptop	1			Runs Zoom + shared content		2
+hub	*	video	BlackMagic Web Presenter	1			Console audio + room cam		3
+hub	*	video	Built-In Room Camera	1					4
+forum	*	audio	Mixer	1	Tech Table				0
+forum	*	audio	Microphone HH	2	Tech Table				1
+forum	*	audio	Microphone LAV	1	Tech Table				2
+forum	*	presentation	Laptop (Client)	1	Tech Table	Client			3
+forum	*	control	Perfect Cue	1	Tech Table		Syncs Zoom + content		4
+forum	*	video	Built-In Room Camera	1	Back of Room				5
+forum	*	video	Zoom Laptop	1	Tech Table		Shares PPT w/ audio		6
+forum	*	video	BlackMagic Web Presenter	1	Tech Table		Aux audio + room cam		7
+wacker-st	*	audio	Mixer	1					0
+wacker-st	*	audio	Boundary Mic	4			Spread around room		1
+wacker-st	*	audio	Aux Out → BlackMagic	1					2
+wacker-st	*	video	Zoom Laptop	1			Shares content + audio		3
+wacker-st	*	video	BlackMagic Web Presenter	1			Room audio + Vaddio HDMI		4
+wacker-st	*	video	Vaddio Camera	1			SR corner on tripod		5
+adams-st	*	audio	Mixer	1					0
+adams-st	*	audio	Boundary Mic	4			Spread around room		1
+adams-st	*	audio	Aux Out → BlackMagic	1					2
+adams-st	*	video	Zoom Laptop	1			Shares content + audio		3
+adams-st	*	video	BlackMagic Web Presenter	1			Room audio + Vaddio HDMI		4
+adams-st	*	video	Vaddio Camera	1			SR corner on tripod		5
+elev	*	cables	Extension Cord	1			Power to Reg Desk		0
+elev	*	cables	Power Strip	1					1

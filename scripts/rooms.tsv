@@ -1,0 +1,18 @@
+room_id	name	type	crew	tags
+hall	Hall (Combined)	meeting	V1 Emmett, A1 Danny	crew:V1: Emmett|crew:A1: Danny|zoom:Zoom|vendor:Hartford
+hall-s	Hall South	meeting		day:2/12 only
+hub	Hub	meeting		zoom:Zoom|day:2/11–12
+forum	Forum (Combined)	meeting	V1 Skye, A1 Garen	crew:V1: Skye|crew:A1: Garen|zoom:Zoom|day:2/11
+forum-s	Forum South	meeting		
+wacker-st	Wacker Studio	studio		zoom:Zoom|day:2/11–12
+adams-st	Adams Studio	studio		zoom:Zoom|day:2/11–12
+elev	Elevator Bank Hallway	service		
+khan	Khan Boardroom	studio		
+olmstead	Olmstead Boardroom	studio		
+farrand	Farrand Boardroom	studio		
+miller	Miller Boardroom	studio		
+adams-g	Adams Gallery	gallery		
+wacker-g	Wacker Gallery	gallery		
+jackson-g	Jackson Gallery	gallery		
+franklin-g	Franklin Gallery	gallery		
+green	Green Room	service		
